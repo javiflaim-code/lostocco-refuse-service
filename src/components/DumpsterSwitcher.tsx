@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { ButtonLink, Placeholder } from '@/components/ui';
-import { BEAVER_NAME, dumpsters, site, unacceptableItemsUrl, type DumpsterSize } from '@/lib/site';
+import { BEAVER_NAME, dumpsters, site, type DumpsterSize } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 const sizes = dumpsters.map((d) => d.size);
@@ -14,9 +14,23 @@ function isSize(value: string | null): value is DumpsterSize {
 }
 
 /**
- * The 10 / 20 / 30 yard picker. Selection lives in the `size` query parameter
- * so a specific size can be linked to directly.
+ * Roll-offs are long rather than tall — a 30 yard is about the height of a
+ * person but nearly twice as long as a 10 yard. The silhouette is drawn on a
+ * shared stage in those proportions, with Rocco at six feet as the ruler, so
+ * the three sizes read honestly against each other.
  */
+const STAGE_FEET = 26;
+const STAGE_HEIGHT_FEET = 8;
+const ROCCO_FEET = 6;
+
+const proportions: Record<DumpsterSize, { lengthFt: number; heightFt: number }> = {
+  '10': { lengthFt: 12, heightFt: 3.5 },
+  '20': { lengthFt: 22, heightFt: 4.5 },
+  '30': { lengthFt: 22, heightFt: 6 },
+};
+
+const pct = (value: number, of: number) => `${(value / of) * 100}%`;
+
 export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,6 +39,7 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
   const raw = searchParams.get('size');
   const active: DumpsterSize = isSize(raw) ? raw : '20';
   const current = dumpsters.find((d) => d.size === active) ?? dumpsters[1];
+  const shape = proportions[active];
 
   const select = useCallback(
     (size: DumpsterSize) => {
@@ -34,9 +49,6 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
     },
     [pathname, router, searchParams],
   );
-
-  // Relative silhouette widths so the sizes read as sizes, not as three equal boxes.
-  const scale: Record<DumpsterSize, string> = { '10': '52%', '20': '74%', '30': '96%' };
 
   return (
     <div className="flex flex-col gap-8">
@@ -49,7 +61,7 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
               type="button"
               aria-pressed={selected}
               onClick={() => select(option.size)}
-              className={`display min-h-[52px] rounded-full border-[3px] border-ink px-6 text-[0.9375rem] transition-shadow xs:text-base ${
+              className={`display min-h-[56px] rounded-full border-[3px] border-ink px-7 text-[1.0625rem] tracking-[0.05em] transition-shadow ${
                 selected
                   ? 'bg-amber text-ink shadow-hard-ink'
                   : 'bg-paper text-forest hover:shadow-hard-ink'
@@ -109,50 +121,42 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
 
         {showScale ? (
           <div className="flex flex-col gap-4">
-            <div className="card flex flex-col justify-end bg-mint p-6 xs:p-8">
-              <p className="display mb-4 text-[0.875rem] text-forest">
+            <div className="card flex flex-col bg-mint p-6 xs:p-8">
+              <p className="display mb-5 text-[0.875rem] text-forest">
                 {BEAVER_NAME} at scale — {current.label}
               </p>
-              <div className="flex items-end gap-4">
-                <Image
-                  src={poses.standing.src}
-                  alt={poses.standing.alt}
-                  width={poses.standing.width}
-                  height={poses.standing.height}
-                  sizes="(max-width: 768px) 25vw, 120px"
-                  className="h-auto w-[84px] shrink-0 xs:w-[110px]"
-                />
-                <div className="flex-1">
-                  <div
-                    className="flex items-center justify-center rounded-[10px] border-[3px] border-ink bg-forest text-paper transition-all duration-200"
-                    style={{
-                      width: scale[active],
-                      height: active === '10' ? 66 : active === '20' ? 92 : 118,
-                    }}
-                  >
-                    <span className="display text-[0.875rem] text-amber">{current.label}</span>
-                  </div>
+
+              {/* Shared stage: 26 ft wide, 8 ft tall. Rocco is six feet. */}
+              <div
+                className="flex w-full items-end gap-3"
+                style={{ aspectRatio: `${STAGE_FEET} / ${STAGE_HEIGHT_FEET}` }}
+              >
+                <div className="flex h-full items-end" style={{ width: pct(3, STAGE_FEET) }}>
+                  <Image
+                    src={poses.standing.src}
+                    alt={poses.standing.alt}
+                    width={poses.standing.width}
+                    height={poses.standing.height}
+                    sizes="90px"
+                    style={{ height: pct(ROCCO_FEET, STAGE_HEIGHT_FEET) }}
+                    className="w-auto max-w-none object-contain object-bottom"
+                  />
+                </div>
+                <div
+                  className="flex items-center justify-center rounded-[8px] border-[3px] border-ink bg-forest transition-all duration-200"
+                  style={{
+                    width: pct(shape.lengthFt, STAGE_FEET),
+                    height: pct(shape.heightFt, STAGE_HEIGHT_FEET),
+                  }}
+                >
+                  <span className="display text-[1rem] text-amber">{current.label}</span>
                 </div>
               </div>
-              <p className="mt-4 text-[0.875rem] text-ink/75">
-                Relative sizes, drawn to compare. Exact dimensions are coming from the yard.
-              </p>
-            </div>
 
-            <div className="card border-warning bg-paper p-5">
-              <p className="display text-[0.875rem] text-warning">Never in a roll-off</p>
-              <p className="mt-2 text-[0.9375rem]">
-                Paint, chemicals, tires, electronics and appliances with refrigerant. If you are
-                unsure, call before you load it.{' '}
-                <a
-                  href={unacceptableItemsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-forest underline underline-offset-4"
-                >
-                  See the full list (PDF)
-                </a>
-                .
+              <p className="mt-5 text-[0.9375rem] text-ink/75">
+                Typical proportions, with {BEAVER_NAME} at six feet for comparison. A 30 yard is
+                about as tall as you are and roughly twice the length of a 10 yard. Exact dimensions
+                are coming from the yard.
               </p>
             </div>
           </div>
