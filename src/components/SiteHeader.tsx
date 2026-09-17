@@ -5,11 +5,11 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { nav, site } from '@/lib/site';
 
-function PhoneIcon() {
+function PhoneIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
-      width="16"
-      height="16"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -23,6 +23,11 @@ function PhoneIcon() {
   );
 }
 
+/**
+ * Two bands. The amber one carries the navigation, so the tabs read off the
+ * green rather than sitting quietly inside it. The green one carries the
+ * wordmark, the phone and hours together, and the standing CTA.
+ */
 export function SiteHeader() {
   const pathname = usePathname();
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -90,47 +95,29 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Amber utility bar */}
+      {/* Amber navigation band */}
       <div className="on-amber border-b-[3px] border-ink bg-amber">
-        <div className="wrap flex flex-wrap items-center justify-between gap-x-6 gap-y-1 py-1.5">
-          <a
-            href={site.phoneHref}
-            className="display inline-flex min-h-[44px] items-center gap-2 text-[0.875rem] text-ink"
-          >
-            <PhoneIcon />
-            {site.phone}
-          </a>
-          <p className="hidden text-[0.875rem] font-semibold text-ink xs:block">
-            Mon–Fri 8–5 · {site.credential}
-          </p>
-        </div>
-      </div>
-
-      {/* Forest nav */}
-      <div className="on-forest border-b-[3.5px] border-ink bg-forest">
-        <div className="wrap flex items-center justify-between gap-4 py-3">
-          <Link
-            href="/"
-            className="display flex min-h-[44px] shrink-0 flex-col justify-center leading-none text-paper"
-            aria-label={`${site.shortName} — home`}
-          >
-            <span className="text-[1.375rem] normal-case tracking-[0.05em] xs:text-[1.625rem]">
-              LoStocco
-            </span>
-            <span className="text-[0.875rem] text-amber">Refuse Service</span>
-          </Link>
-
+        <div className="wrap">
           <nav aria-label="Main" className="hidden md:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center justify-center gap-1 lg:gap-2">
+              <li>
+                <Link
+                  href="/"
+                  aria-current={pathname === '/' ? 'page' : undefined}
+                  className={`display flex min-h-[52px] items-center rounded-[10px] px-4 text-[1.0625rem] tracking-[0.06em] transition-colors ${
+                    pathname === '/' ? 'bg-forest text-paper' : 'text-ink hover:bg-ink/10'
+                  }`}
+                >
+                  Home
+                </Link>
+              </li>
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className={`display flex min-h-[44px] items-center rounded-full px-3.5 text-[0.875rem] transition-colors ${
-                      isActive(item.href)
-                        ? 'bg-amber text-ink'
-                        : 'text-mint hover:bg-paper/10 hover:text-paper'
+                    className={`display flex min-h-[52px] items-center rounded-[10px] px-4 text-[1.0625rem] tracking-[0.06em] transition-colors ${
+                      isActive(item.href) ? 'bg-forest text-paper' : 'text-ink hover:bg-ink/10'
                     }`}
                   >
                     {item.label}
@@ -140,10 +127,49 @@ export function SiteHeader() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-3">
+          {/* On small screens the amber band is just a phone strip */}
+          <a
+            href={site.phoneHref}
+            className="display flex min-h-[48px] items-center justify-center gap-2 text-[1.0625rem] tracking-[0.06em] text-ink md:hidden"
+          >
+            <PhoneIcon />
+            {site.phone}
+          </a>
+        </div>
+      </div>
+
+      {/* Forest brand band */}
+      <div className="on-forest border-b-[3.5px] border-ink bg-forest">
+        <div className="wrap flex items-center justify-between gap-4 py-4 md:py-5">
+          <Link
+            href="/"
+            className="display flex shrink-0 flex-col justify-center leading-[0.95] text-paper"
+            aria-label={`${site.shortName} — home`}
+          >
+            <span className="text-[2rem] normal-case tracking-[0.04em] xs:text-[2.625rem] md:text-[3.25rem]">
+              LoStocco
+            </span>
+            <span className="text-[0.875rem] tracking-[0.34em] text-amber xs:text-[1rem] md:text-[1.125rem]">
+              Refuse Service
+            </span>
+          </Link>
+
+          <div className="flex items-center gap-4 md:gap-6">
+            {/* Phone and hours, kept together */}
+            <div className="hidden flex-col items-end leading-tight sm:flex">
+              <a
+                href={site.phoneHref}
+                className="display flex min-h-[44px] items-center gap-2 text-[1.25rem] tracking-[0.05em] text-amber md:text-[1.5rem]"
+              >
+                <PhoneIcon size={20} />
+                {site.phone}
+              </a>
+              <p className="text-[0.9375rem] font-semibold text-mint">Mon–Fri · 8:00 – 5:00</p>
+            </div>
+
             <Link
               href="/contact"
-              className="display hidden min-h-[44px] items-center rounded-full border-[3px] border-ink bg-amber px-5 text-[0.875rem] text-ink shadow-hard-sm transition-shadow hover:shadow-none xs:inline-flex"
+              className="display hidden min-h-[52px] items-center rounded-full border-[3px] border-ink bg-amber px-6 text-[1rem] tracking-[0.05em] text-ink shadow-hard-sm transition-shadow hover:shadow-none md:inline-flex"
             >
               Start Service
             </Link>
@@ -154,12 +180,12 @@ export function SiteHeader() {
               onClick={() => setOpen(!open)}
               aria-expanded={open}
               aria-controls="mobile-drawer"
-              className="flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-ink bg-paper text-ink md:hidden"
+              className="flex h-12 w-12 items-center justify-center rounded-full border-[3px] border-ink bg-paper text-ink md:hidden"
             >
               <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
               <svg
-                width="20"
-                height="20"
+                width="22"
+                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -204,12 +230,23 @@ export function SiteHeader() {
             className="relative max-h-full overflow-y-auto border-b-[3.5px] border-ink bg-page px-5 pb-8 pt-5"
           >
             <ul className="flex flex-col gap-2">
+              <li>
+                <Link
+                  href="/"
+                  aria-current={pathname === '/' ? 'page' : undefined}
+                  className={`display flex min-h-[56px] items-center rounded-[14px] border-[3px] border-ink px-4 text-[1.125rem] ${
+                    pathname === '/' ? 'bg-amber text-ink' : 'bg-paper text-forest'
+                  }`}
+                >
+                  Home
+                </Link>
+              </li>
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
-                    className={`display flex min-h-[52px] items-center rounded-[14px] border-[3px] border-ink px-4 text-base ${
+                    className={`display flex min-h-[56px] items-center rounded-[14px] border-[3px] border-ink px-4 text-[1.125rem] ${
                       isActive(item.href) ? 'bg-amber text-ink' : 'bg-paper text-forest'
                     }`}
                   >
@@ -222,17 +259,20 @@ export function SiteHeader() {
             <div className="mt-5 flex flex-col gap-3">
               <Link
                 href="/contact"
-                className="display flex min-h-[52px] items-center justify-center rounded-full border-[3px] border-ink bg-forest px-5 text-base text-paper shadow-hard-ink"
+                className="display flex min-h-[56px] items-center justify-center rounded-full border-[3px] border-ink bg-forest px-5 text-[1.125rem] text-paper shadow-hard-ink"
               >
                 Start Service
               </Link>
               <a
                 href={site.phoneHref}
-                className="display flex min-h-[52px] items-center justify-center gap-2 rounded-full border-[3px] border-ink bg-paper px-5 text-base text-ink"
+                className="display flex min-h-[56px] items-center justify-center gap-2 rounded-full border-[3px] border-ink bg-paper px-5 text-[1.125rem] text-ink"
               >
                 <PhoneIcon />
                 {site.phone}
               </a>
+              <p className="text-center text-[0.9375rem] font-semibold text-ink/75">
+                {site.hours.weekdays}
+              </p>
             </div>
           </div>
         </div>

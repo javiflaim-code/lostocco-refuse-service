@@ -63,7 +63,7 @@ const config: Config = {
       },
       animation: {
         bob: 'bob 3.4s ease-in-out infinite',
-        marquee: 'marquee 28s linear infinite',
+        marquee: 'marquee 75s linear infinite',
       },
     },
   },
