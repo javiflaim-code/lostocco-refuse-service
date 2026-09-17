@@ -2,8 +2,9 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ButtonLink, Placeholder, PhotoFrame, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { Marquee } from '@/components/Marquee';
-import { site, towns } from '@/lib/site';
+import { BEAVER_NAME, site, towns, unacceptableItemsUrl } from '@/lib/site';
 import { poses, type PoseKey } from '@/lib/poses';
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ const blocks: Block[] = [
     slug: 'residential-trash',
     title: 'Residential Trash',
     lede: 'One cart, one pickup day, every week. The same truck and the same crew on your street.',
-    pose: 'rearLoader',
+    pose: 'standing',
     points: [
       'Weekly curbside collection at your house',
       'Carts out at the curb the night before',
@@ -62,7 +63,7 @@ const blocks: Block[] = [
     slug: 'commercial',
     title: 'Commercial Trash & Recycling',
     lede: 'Offices, restaurants, retail, contractors and multi-family buildings. We size the service to the volume.',
-    pose: 'rollOff',
+    pose: 'calendar',
     points: [
       'Scheduled pickup, set to how fast you actually fill up',
       'Containers sized to the space you have',
@@ -98,14 +99,24 @@ const blocks: Block[] = [
   },
 ];
 
+/** Materials that belong at a drop-off rather than in a cart or container. */
+const handledElsewhere = [
+  'Paint — wet or dried, cans included',
+  'Chemicals, solvents and pool supplies',
+  'Tires, on or off the rim',
+  'Electronics — TVs, monitors, computers',
+  'Appliances containing refrigerant',
+  'Propane tanks and car batteries',
+];
+
 export default function ServicesPage() {
   return (
     <>
       <PageHero
         eyebrow="Services"
-        title="What we haul"
+        title="Everything we haul"
         lede="Residential and commercial trash, recycling, and roll-off containers across five Connecticut towns. Call us and a person picks up."
-        pose="standing"
+        pose={['rearLoader', 'rollOff']}
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/contact" variant="amber">
@@ -116,6 +127,8 @@ export default function ServicesPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <Breadcrumb label="Services" />
 
       <Marquee
         items={[
@@ -204,6 +217,65 @@ export default function ServicesPage() {
           </div>
         </Section>
       ))}
+
+      {/* What a container takes — moved off the dumpsters page, which sells */}
+      <Section tone="bone" labelledBy="restrictions" id="restrictions">
+        <SectionHead
+          eyebrow="Good to know"
+          title="What a container takes"
+          lede="A roll-off handles almost everything from a cleanout or a remodel. A short list of materials goes elsewhere, and the town has a place for each of them."
+          id="restrictions"
+        />
+        <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
+          <div className="flex flex-col gap-6">
+            <ul className="grid gap-3 xs:grid-cols-2">
+              {handledElsewhere.map((item) => (
+                <li key={item} className="card flex items-start gap-3 p-4">
+                  <span
+                    aria-hidden="true"
+                    className="display mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border-[3px] border-ink bg-warning px-3 py-1 text-[0.875rem] text-paper"
+                  >
+                    Nope!
+                  </span>
+                  <span className="text-[0.9375rem]">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="max-w-[62ch] text-[0.9375rem]">
+              {BEAVER_NAME} would rather flag it now than leave it at your curb. Call{' '}
+              <a
+                href={site.phoneHref}
+                className="font-semibold text-forest underline underline-offset-4"
+              >
+                {site.phone}
+              </a>{' '}
+              and we will point you to the right drop-off, or see the{' '}
+              <a
+                href={unacceptableItemsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-forest underline underline-offset-4"
+              >
+                full list (PDF)
+              </a>
+              .
+            </p>
+            <div>
+              <ButtonLink href="/resources" variant="forest">
+                All schedules and rules
+              </ButtonLink>
+            </div>
+          </div>
+          <Image
+            src={poses.keepOut.src}
+            alt={poses.keepOut.alt}
+            width={poses.keepOut.width}
+            height={poses.keepOut.height}
+            sizes="(max-width: 1024px) 75vw, 340px"
+            className="h-auto w-full max-w-[340px] justify-self-center"
+          />
+        </div>
+      </Section>
 
       {/* Where */}
       <Section tone="forest" labelledBy="services-towns">

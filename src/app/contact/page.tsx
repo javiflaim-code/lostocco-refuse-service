@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ButtonLink, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { ContactForm } from '@/components/ContactForm';
 import { site, towns } from '@/lib/site';
 import { poses } from '@/lib/poses';
@@ -32,6 +33,8 @@ export default function ContactPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <Breadcrumb label="Contact" />
 
       {/* Form + details */}
       <Section tone="page" labelledBy="form-heading">

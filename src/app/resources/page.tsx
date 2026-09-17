@@ -2,6 +2,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ButtonLink, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { CurbsideReminders, KeepItOutGrid, ResourceCards } from '@/components/content';
 import { keepOut, resources, site, unacceptableItemsUrl } from '@/lib/site';
 import { poses } from '@/lib/poses';
@@ -71,6 +72,8 @@ export default function ResourcesPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <Breadcrumb label="Resources" />
 
       {/* Downloads */}
       <Section tone="page" labelledBy="downloads-heading" id="downloads">

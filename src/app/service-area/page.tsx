@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ButtonLink, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { ServiceAreaMapSection } from '@/components/ServiceAreaMapSection';
 import { AddressChecker } from '@/components/AddressChecker';
 import { Marquee } from '@/components/Marquee';
@@ -36,6 +37,8 @@ export default function ServiceAreaPage() {
           </ButtonLink>
         </div>
       </PageHero>
+
+      <Breadcrumb label="Service Area" />
 
       <Marquee items={towns.map((town) => `${town.name}, CT`)} />
 

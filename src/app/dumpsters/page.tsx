@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ButtonLink, Placeholder, PhotoFrame, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { DumpsterSwitcher } from '@/components/DumpsterSwitcher';
 import { ContactForm } from '@/components/ContactForm';
-import { KeepItOutGrid } from '@/components/content';
-import { BEAVER_NAME, site, unacceptableItemsUrl } from '@/lib/site';
+import { site } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 export const metadata: Metadata = {
@@ -15,15 +15,6 @@ export const metadata: Metadata = {
     'Compare 10, 20 and 30 yard roll-off dumpsters for cleanouts, remodels and construction in greater Danbury, CT. Driveway protection, straightforward pricing, local delivery.',
   alternates: { canonical: '/dumpsters' },
 };
-
-const restricted = [
-  'Paint — wet or dried, cans included',
-  'Chemicals, solvents and pool supplies',
-  'Tires, on or off the rim',
-  'Electronics — TVs, monitors, computers',
-  'Appliances containing refrigerant',
-  'Propane tanks and car batteries',
-];
 
 export default function DumpstersPage() {
   return (
@@ -44,6 +35,8 @@ export default function DumpstersPage() {
         </div>
       </PageHero>
 
+      <Breadcrumb label="Dumpsters" />
+
       {/* The centerpiece */}
       <Section tone="page" labelledBy="compare-sizes" id="sizes">
         <SectionHead
@@ -59,61 +52,33 @@ export default function DumpstersPage() {
         </div>
       </Section>
 
-      {/* What can't go in */}
-      <Section tone="mint" labelledBy="restrictions">
-        <SectionHead
-          eyebrow="Before you load"
-          title="What can’t go in"
-          lede="Some of it is the law, some of it is the landfill’s rule, and some of it is what keeps a driver safe."
-          id="restrictions"
-        />
-        <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
-          <div className="flex flex-col gap-6">
-            <ul className="grid gap-3 xs:grid-cols-2">
-              {restricted.map((item) => (
-                <li key={item} className="card flex items-start gap-3 p-4">
-                  <span
-                    aria-hidden="true"
-                    className="display mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border-[3px] border-ink bg-warning px-3 py-1 text-[0.875rem] text-paper"
-                  >
-                    Nope!
-                  </span>
-                  <span className="text-[0.9375rem]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="max-w-[62ch] text-[0.9375rem]">
-              {BEAVER_NAME}’s rule: if you would not want it in your own basement, call before you
-              throw it in.{' '}
-              <a
-                href={unacceptableItemsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-forest underline underline-offset-4"
-              >
-                Full unacceptable-items list (PDF)
-              </a>
-              .
-            </p>
+      {/* One quiet pointer; the full list lives on the services page */}
+      <Section tone="mint" labelledBy="what-fits">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-center md:gap-12">
+          <div className="flex flex-col gap-5">
+            <SectionHead
+              eyebrow="Load it up"
+              title="Almost everything goes in"
+              lede="Cleanouts, remodels, roofing, framing debris, furniture, flooring — a roll-off takes it. A short list of materials belongs at a drop-off instead, and we will tell you which on the call."
+              id="what-fits"
+            />
+            <div className="flex flex-wrap gap-4">
+              <ButtonLink href="/services#restrictions" variant="forest">
+                See what goes elsewhere
+              </ButtonLink>
+              <ButtonLink href={site.phoneHref} variant="outline">
+                Ask us — {site.phone}
+              </ButtonLink>
+            </div>
           </div>
           <Image
             src={poses.keepOut.src}
             alt={poses.keepOut.alt}
             width={poses.keepOut.width}
             height={poses.keepOut.height}
-            sizes="(max-width: 1024px) 75vw, 340px"
-            className="h-auto w-full max-w-[340px] justify-self-center"
+            sizes="(max-width: 1024px) 70vw, 320px"
+            className="h-auto w-full max-w-[320px] justify-self-center"
           />
-        </div>
-
-        <div className="mt-12">
-          <h3 className="display text-subsection text-forest">Cart rules still apply</h3>
-          <p className="mt-3 max-w-[62ch] text-lede">
-            The six things below never belong in a curbside cart either, container or no container.
-          </p>
-          <div className="mt-6">
-            <KeepItOutGrid />
-          </div>
         </div>
       </Section>
 
