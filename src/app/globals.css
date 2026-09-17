@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-page font-body text-ink antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Anton is far too tight at default tracking. Never ship it below 0.04em. */
+  .display {
+    font-family: var(--font-display), Impact, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.04;
+  }
+
+  .display--hero {
+    letter-spacing: 0.05em;
+    line-height: 1.06;
+  }
+
+  .marquee {
+    letter-spacing: 0.09em;
+  }
+
+  :focus-visible {
+    outline: 3px solid #14211a;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Amber surfaces need the ink ring to stay visible against the ink text. */
+  .on-amber :focus-visible,
+  .on-forest :focus-visible {
+    outline-color: #ffffff;
+  }
+
+  ::selection {
+    background: #f2a50c;
+    color: #14211a;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1200px] px-5 xs:px-6 sm:px-8;
+  }
+
+  .band {
+    @apply border-b-[3.5px] border-ink;
+  }
+
+  .card {
+    @apply rounded-card border-3 border-ink bg-paper;
+  }
+
+  .card-lift {
+    @apply shadow-hard transition-shadow duration-150;
+  }
+
+  .card-lift:hover,
+  .card-lift:focus-within {
+    @apply shadow-hard-amber;
+  }
+
+  .pill {
+    @apply inline-flex min-h-[44px] items-center justify-center rounded-full border-[3px] border-ink px-6 py-2.5 text-center;
+  }
+
+  .frame {
+    @apply overflow-hidden rounded-frame border-3 border-ink;
+  }
+
+  .prose-plain p {
+    @apply mb-4 max-w-[68ch] text-lede;
+  }
+
+  .prose-plain p:last-child {
+    @apply mb-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
