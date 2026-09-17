@@ -287,7 +287,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-2">
         <label htmlFor="message" className="display text-[0.875rem] text-forest">
           {labels.message}{' '}
-          <span className="font-body text-[0.875rem] font-semibold normal-case tracking-normal text-ink/55">
+          <span className="font-body text-[0.875rem] font-semibold normal-case tracking-normal text-ink/75">
             (optional)
           </span>
         </label>
