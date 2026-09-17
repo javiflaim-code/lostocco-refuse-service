@@ -201,6 +201,18 @@ Each is a styled empty frame with a label, never a stretched stock image.
 
 ---
 
+## Analytics
+
+Vercel Web Analytics is enabled. `<Analytics />` from `@vercel/analytics/next`
+is mounted once in the root layout, so every route is counted without any
+per-page wiring. The tracker only loads on Vercel deployments — local
+development sends nothing. Figures show up under **Project → Analytics** in the
+Vercel dashboard.
+
+No cookies and no env vars are involved.
+
+---
+
 ## Accessibility and SEO
 
 Verified across all nine routes at 375 / 768 / 1440 px:
