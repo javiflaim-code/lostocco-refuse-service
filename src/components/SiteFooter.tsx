@@ -132,17 +132,7 @@ export function SiteFooter() {
             <p>
               © {new Date().getFullYear()} {site.legalName}. All rights reserved.
             </p>
-            <p>
-              Sister company:{' '}
-              <a
-                href={site.metalworksUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-amber underline underline-offset-4"
-              >
-                LoStocco Metalworks LLC
-              </a>
-            </p>
+            <p>{site.address.full}</p>
           </div>
         </div>
       </div>

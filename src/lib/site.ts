@@ -4,10 +4,9 @@
  */
 
 /**
- * The mascot's name is NOT final. Change it here and it changes everywhere.
- * Candidates on the ballot: Stucky, Stocco, Rocco, Stocky, Brooky, Chip, Timber.
+ * The mascot is Rocco. Change it here and it changes everywhere.
  */
-export const BEAVER_NAME = 'Timber';
+export const BEAVER_NAME = 'Rocco';
 
 export const site = {
   legalName: 'LoStocco Refuse Service, LLC',
@@ -30,7 +29,6 @@ export const site = {
   },
   credential: 'HRRA licensed hauler',
   payBillUrl: 'https://www.lostoccoct.com/pay-bill-online',
-  metalworksUrl: 'https://www.lostoccometalworks.com/',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=79+Beaver+Brook+Road+Danbury+CT+06810',
   mapsEmbedUrl:
     'https://www.google.com/maps?q=79+Beaver+Brook+Road,+Danbury,+CT+06810&output=embed',
@@ -90,6 +88,24 @@ export const towns = [
 ] as const;
 
 export type Town = (typeof towns)[number];
+
+export const cartSizes = [
+  {
+    gallons: '45',
+    label: '45 Gallon',
+    best: 'The smallest cart. Fine for a couple or a household that fills one bag a week.',
+  },
+  {
+    gallons: '65',
+    label: '65 Gallon',
+    best: 'The middle size, and the one most families land on.',
+  },
+  {
+    gallons: '95',
+    label: '95 Gallon',
+    best: 'The largest cart. Bigger households, or anyone who would rather not think about it.',
+  },
+] as const;
 
 export const dumpsters = [
   {
@@ -234,16 +250,6 @@ export const resources = [
 
 export const unacceptableItemsUrl =
   'https://irp.cdn-website.com/aeebe00b/files/uploaded/Unacceptable%20Pick%20Up%20Items%20List.pdf';
-
-export const beaverNameOptions = [
-  'Stucky',
-  'Stocco',
-  'Rocco',
-  'Stocky',
-  'Brooky',
-  'Chip',
-  'Timber',
-] as const;
 
 export const nav = [
   { href: '/services', label: 'Services' },

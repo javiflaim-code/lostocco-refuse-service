@@ -9,6 +9,7 @@ import {
   SectionHead,
 } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
+import { Breadcrumb } from '@/components/Breadcrumb';
 import { site, towns } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
@@ -38,6 +39,8 @@ export default function AboutPage() {
         </div>
       </PageHero>
 
+      <Breadcrumb label="About" />
+
       {/* Joseph III */}
       <Section tone="bone" labelledBy="joe-three">
         <div className="grid gap-8 md:grid-cols-[1fr_0.8fr] md:items-start md:gap-12">
@@ -50,9 +53,8 @@ export default function AboutPage() {
                 still on the route.
               </p>
               <p>
-                He loved trucks, old and new. He taught himself to weld, and that skill turned into
-                a second business: LoStocco Metalworks, still running today. If something broke in
-                the yard, he fixed it himself.
+                He loved trucks, old and new, and he taught himself to weld. If something broke in
+                the yard, he fixed it himself rather than wait on someone else.
               </p>
               <p>
                 Joe passed away in September 2021. What he built did not change hands outside the
@@ -171,7 +173,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Credentials + metalworks */}
+      {/* Credentials — the one place the HRRA licence is mentioned */}
       <Section tone="page" labelledBy="credentials">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="card flex flex-col gap-4 p-6 xs:p-8">
@@ -183,6 +185,7 @@ export default function AboutPage() {
               regional waste authority for this part of Connecticut, and its calendar is the one our
               recycling runs on.
             </p>
+            <Placeholder label="confirm the current HRRA licence is up to date — the copy on file expired in 2024" />
             <address className="mt-auto flex flex-col gap-1 text-[0.9375rem] not-italic">
               <span className="font-semibold">{site.legalName}</span>
               <span>{site.address.full}</span>
@@ -193,14 +196,14 @@ export default function AboutPage() {
           </div>
 
           <div className="card flex flex-col gap-4 bg-mint p-6 xs:p-8">
-            <h2 className="display text-subsection text-forest">LoStocco Metalworks</h2>
+            <h2 className="display text-subsection text-forest">Still the same family</h2>
             <p className="text-lede text-ink/85">
-              Joe’s welding turned into a second family business. Metalworks is still run by the
-              family, out of the same corner of Danbury.
+              No holding company bought this business and no call centre answers the phone. The
+              people who pick up your trash are the people whose name is on the truck.
             </p>
             <div className="mt-auto">
-              <ButtonLink href={site.metalworksUrl} variant="forest">
-                Visit LoStocco Metalworks
+              <ButtonLink href="/contact" variant="forest">
+                Start service
               </ButtonLink>
             </div>
           </div>
