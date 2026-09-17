@@ -40,7 +40,7 @@ Then open <http://localhost:3000>.
 | `/dumpsters` | 10 / 20 / 30 yard comparison + rental request form |
 | `/service-area` | Five-town map, per-town detail, address checker |
 | `/resources` | Eight PDFs plus the rules written out in HTML |
-| `/about` | Family story, the fleet, LoStocco Metalworks |
+| `/about` | Family story, the fleet, HRRA licence |
 | `/pay-bill` | Hand-off to the existing payment portal |
 | `/contact` | Start-service form, hours, address, embedded map |
 | _anything else_ | 404 |
@@ -93,19 +93,16 @@ Two rules worth keeping:
   `ink`. On light surfaces use `forest`, or put the amber behind ink type — see
   the `Numeral` component in `src/components/ui.tsx`.
 
-### The mascot's name
+### The mascot
 
-The beaver's name is **not final**. It is a single exported constant:
+The beaver is **Rocco**, kept as a single exported constant:
 
 ```ts
 // src/lib/site.ts
-export const BEAVER_NAME = 'Timber';
+export const BEAVER_NAME = 'Rocco';
 ```
 
-Change it there and it changes everywhere. The "help us name our beaver" ballot
-on the homepage reads its options from `beaverNameOptions` in the same file;
-votes are stored in the visitor's own browser (`localStorage`) and are not sent
-anywhere.
+Change it there and it changes everywhere.
 
 ---
 
@@ -144,60 +141,52 @@ changes; no component edits.
 
 ## What the client still needs to provide
 
-Everything below renders on the site as a visibly marked
-`[PLACEHOLDER — …]` or `[PHOTO — …]` block, so it is obvious what is missing.
-Fill the values into `src/lib/site.ts` (or the noted component) and delete the
-placeholder.
+Gaps render on the site as visibly marked `[PLACEHOLDER — …]` or `[PHOTO — …]`
+blocks. Fill the values into `src/lib/site.ts` (or the noted component) and
+delete the placeholder.
 
-### Numbers — do not guess these
+### Artwork still to come
 
-- [ ] **Number of trucks in the fleet** — homepage stats, About page
-- [ ] **Number of households served** — homepage stats, About page
-- [ ] **Trash cart size in gallons** — homepage, Services → residential
-- [ ] **Recycling cart size in gallons** — homepage, Services → recycling
-- [ ] **Dumpster dimensions** (L × W × H) for 10, 20 and 30 yard —
-      `dumpsters[].dimensions` in `src/lib/site.ts`
-- [ ] **Pickup-truck-load equivalent** for each dumpster size —
-      `dumpsters[].truckLoads`
+Six pieces were requested in review and are not drawn yet. Each has a labelled
+slot on the page, so dropping the file in is the only step left.
+
+- [ ] **Cart sizes cartoon** — Rocco beside the 45, 65 and 95 gallon carts (homepage, residential row)
+- [ ] **Dumpster with depth** — the current hero art reads flat, with no width behind it (Dumpsters hero)
+- [ ] **Rocco over each bin** — head and paws over the rim of the 10, 20 and 30 yard containers
+- [ ] **Pay Bill pose** — currently borrows the head-and-shoulders portrait so it differs from Contact
+- [ ] **Extra truck art** — for hero and section use beyond the two trucks on hand
+- [ ] **Small directional poses** — Rocco peeking over a card or pointing at a button
+
+### Numbers still unconfirmed
+
+- [ ] **Which cart sizes apply to trash vs recycling.** 45 / 65 / 95 gallon came off LoStocco's own site, but the source does not say which service each belongs to.
+- [ ] **Dumpster dimensions** (L × W × H) for 10, 20 and 30 yard — `dumpsters[].dimensions`
+- [ ] **Pickup-truck-load equivalent** for each dumpster size — `dumpsters[].truckLoads`
 - [ ] **Rental period, daily rate and tonnage allowance** — Dumpsters page
 - [ ] **The year Joe founded the company / how many years he ran it** — About page
+- [ ] **HRRA licence status.** The copy published on the old site expired in 2024. The credential now appears only on the About page, with a placeholder flagging this.
+
+> **Fleet and household counts are currently 10 trucks and "100s of households."**
+> These were supplied by the agency, not confirmed by LoStocco. Worth verifying
+> before the site is promoted — a customer or competitor can quote them back.
 
 ### Decisions
 
-- [ ] **Are bulk / special pickups offered?** If yes, how are they priced? The
-      service is listed with a placeholder rather than described, because we
-      could not confirm it. If the answer is no, remove the `bulk-pickups`
-      entry from `services` in `src/lib/site.ts` and the matching block on the
-      Services page.
-- [ ] **Second phone number.** `203-295-7155` is listed publicly in some places.
-      The site currently uses `203-743-9940` only. Confirm whether the second
-      number should appear anywhere; if so, add it to `site.phone`'s neighbours
-      in `src/lib/site.ts`.
-- [ ] **The beaver's name.** Seven candidates are on the homepage ballot. Pick
-      one and set `BEAVER_NAME`.
-- [ ] **LoStocco Metalworks URL.** `site.metalworksUrl` currently points at
-      `https://www.lostoccometalworks.com/` — confirm that is right.
+- [ ] **Are bulk / special pickups offered?** Listed with a placeholder rather than described, because it could not be confirmed. If the answer is no, remove the `bulk-pickups` entry from `services` in `src/lib/site.ts` and the matching block on the Services page.
+- [ ] **Second phone number.** `203-295-7155` appears publicly in some places. The site uses `203-743-9940` only.
 
 ### Reviews
 
-- [ ] **Three real Google reviews** — quote plus name and town for each. Three
-      marked slots on the homepage.
+- [ ] **Three real Google reviews** — quote plus name and town. Three marked slots on the homepage.
 
 ### Photos
 
 Each is a styled empty frame with a label, never a stretched stock image.
 
-- [ ] Packer truck on route
-- [ ] Roll-off delivery (boards down)
-- [ ] Container on a driveway
-- [ ] Crew at the curb
-- [ ] Recycling cart at the curb
-- [ ] Commercial container behind a building
-- [ ] Bulk item at the curb
+- [ ] Packer truck on route · roll-off delivery · container on a driveway
+- [ ] Crew at the curb · recycling cart at the curb · commercial container
 - [ ] The yard on Beaver Brook Road
-- [ ] Joseph LoStocco III
-- [ ] Joseph IV
-- [ ] Maria
+- [ ] Joseph LoStocco III · Joseph IV · Maria
 
 ---
 
