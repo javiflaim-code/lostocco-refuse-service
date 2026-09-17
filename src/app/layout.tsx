@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Anton, Public_Sans } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SiteFooter } from '@/components/SiteFooter';
 import { LocalBusinessJsonLd } from '@/components/LocalBusinessJsonLd';
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <SiteFooter />
         <LocalBusinessJsonLd />
+        <Analytics />
       </body>
     </html>
   );
