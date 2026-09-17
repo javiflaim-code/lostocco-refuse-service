@@ -1,0 +1,39 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next.js
+.next/
+out/
+build/
+next-env.d.ts
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# Source design assets and internal briefs. The pose art the site actually uses
+# is committed under public/poses/; these are the originals and the working
+# notes, and this repository is public.
+/poses/
+/Images/
+/LoStocco Beaver Mascot Design.zip
+/LoStocco Beaver Prompt Pack v2 (with art).html
+/LoStocco Brain Dump for website.docx
+/LoStocco-Claude-Code-Build-Prompt.md
+/Lostocco_Website_Prompt.md
+/Redding Website Prompt.md
