@@ -34,10 +34,12 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
+      {/* Hero — truck on the left, headline in the middle, Rocco on the right.
+          On narrow screens the headline leads and the two pieces of art share
+          the row beneath it. */}
       <section className="on-forest band bg-forest" aria-labelledby="hero-heading">
-        <div className="wrap grid items-center gap-8 py-10 sm:py-12 md:grid-cols-[1fr_1fr] md:gap-10 md:py-14">
-          <div className="flex flex-col items-start gap-5">
+        <div className="wrap grid grid-cols-2 items-center gap-6 py-10 sm:py-12 md:grid-cols-[0.95fr_1.3fr_0.75fr] md:gap-8 md:py-14">
+          <div className="order-1 col-span-2 flex flex-col items-start gap-5 md:order-2 md:col-span-1 md:items-center md:text-center">
             <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.9375rem] text-amber">
               Family owned · Danbury, CT
             </p>
@@ -46,11 +48,11 @@ export default function HomePage() {
               <br />
               Every week.
             </h1>
-            <p className="max-w-[46ch] text-lede text-mint">
+            <p className="max-w-[44ch] text-lede text-mint">
               Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five
               Connecticut towns. Same family, same trucks, four decades running.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 md:justify-center">
               <ButtonLink href="/contact" variant="amber">
                 Start Service
               </ButtonLink>
@@ -67,26 +69,27 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Rocco on the left, a truck on the right — fills the band and says
-              what the business does before a word is read. */}
-          <div className="flex w-full items-end justify-center gap-2 md:justify-end">
-            <Image
-              src={poses.hero.src}
-              alt={poses.hero.alt}
-              width={poses.hero.width}
-              height={poses.hero.height}
-              priority
-              sizes="(max-width: 768px) 40vw, 280px"
-              className="h-auto w-[40%] max-w-[280px] shrink-0 motion-safe:animate-bob"
-            />
+          <div className="order-2 flex items-end justify-center md:order-1 md:justify-start">
             <Image
               src={poses.rearLoader.src}
               alt={poses.rearLoader.alt}
               width={poses.rearLoader.width}
               height={poses.rearLoader.height}
               priority
-              sizes="(max-width: 768px) 60vw, 420px"
-              className="h-auto w-[62%] max-w-[420px]"
+              sizes="(max-width: 768px) 46vw, 400px"
+              className="h-auto w-full max-w-[400px]"
+            />
+          </div>
+
+          <div className="order-3 flex items-end justify-center md:justify-end">
+            <Image
+              src={poses.hero.src}
+              alt={poses.hero.alt}
+              width={poses.hero.width}
+              height={poses.hero.height}
+              priority
+              sizes="(max-width: 768px) 40vw, 260px"
+              className="h-auto w-full max-w-[180px] motion-safe:animate-bob xs:max-w-[220px] md:max-w-[260px]"
             />
           </div>
         </div>
