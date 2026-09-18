@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ButtonLink, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { ContactForm } from '@/components/ContactForm';
 import { site, towns } from '@/lib/site';
 import { poses } from '@/lib/poses';
@@ -23,6 +22,7 @@ export default function ContactPage() {
         title="Let’s get you started"
         lede="Tell us what you need and where, and someone from the office calls you back with a price and a pickup day. No online checkout, no bots."
         pose="quote"
+        poseWidth="w-full max-w-[390px]"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href={site.phoneHref} variant="amber">
@@ -34,11 +34,9 @@ export default function ContactPage() {
         </div>
       </PageHero>
 
-      <Breadcrumb label="Contact" />
-
       {/* Form + details */}
       <Section tone="page" labelledBy="form-heading">
-        <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-start md:gap-12">
+        <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-stretch md:gap-12">
           <div>
             <SectionHead
               eyebrow="Send a request"
@@ -53,7 +51,15 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 md:justify-end">
+            <Image
+              src={poses.portrait.src}
+              alt={poses.portrait.alt}
+              width={poses.portrait.width}
+              height={poses.portrait.height}
+              sizes="(max-width: 1024px) 34vw, 150px"
+              className="h-auto w-[110px] self-center xs:w-[140px]"
+            />
             <div className="card flex flex-col gap-4 bg-mint p-6 xs:p-8">
               <h2 className="display text-subsection text-forest">Office</h2>
               <address className="flex flex-col gap-3 not-italic">
@@ -96,15 +102,6 @@ export default function ContactPage() {
                 Check your address
               </ButtonLink>
             </div>
-
-            <Image
-              src={poses.portrait.src}
-              alt={poses.portrait.alt}
-              width={poses.portrait.width}
-              height={poses.portrait.height}
-              sizes="(max-width: 1024px) 40vw, 180px"
-              className="h-auto w-[140px] self-center xs:w-[170px]"
-            />
           </div>
         </div>
       </Section>

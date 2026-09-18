@@ -2,7 +2,6 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ButtonLink, Numeral, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { site } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
@@ -27,6 +26,7 @@ export default function PayBillPage() {
         title="Pay your bill"
         lede="Payments are handled on our billing provider’s secure page. Or call the office and we will take it over the phone — some people prefer that, and that is fine."
         pose="payBill"
+        poseWidth="w-full max-w-[390px]"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href={site.payBillUrl} variant="amber">
@@ -37,8 +37,6 @@ export default function PayBillPage() {
           </ButtonLink>
         </div>
       </PageHero>
-
-      <Breadcrumb label="Pay Bill" />
 
       <Section tone="page" labelledBy="how-it-works">
         <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
@@ -51,11 +49,18 @@ export default function PayBillPage() {
             />
             <ol className="grid gap-5 xs:grid-cols-3">
               {steps.map((step, index) => (
-                <li key={step} className="card flex flex-col gap-3 bg-mint p-5">
-                  <Numeral decorative className="self-start">
-                    {index + 1}
-                  </Numeral>
-                  <p className="text-[0.9375rem]">{step}</p>
+                <li key={step} className="card card-lift flex flex-col bg-mint">
+                  <a
+                    href={site.payBillUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-full flex-col gap-3 p-5"
+                  >
+                    <Numeral decorative className="self-start">
+                      {index + 1}
+                    </Numeral>
+                    <p className="text-[0.9375rem]">{step}</p>
+                  </a>
                 </li>
               ))}
             </ol>
@@ -66,12 +71,12 @@ export default function PayBillPage() {
             </div>
           </div>
           <Image
-            src={poses.standing.src}
-            alt={poses.standing.alt}
-            width={poses.standing.width}
-            height={poses.standing.height}
-            sizes="(max-width: 1024px) 45vw, 210px"
-            className="h-auto w-[160px] justify-self-center xs:w-[200px]"
+            src={poses.rearLoader.src}
+            alt={poses.rearLoader.alt}
+            width={poses.rearLoader.width}
+            height={poses.rearLoader.height}
+            sizes="(max-width: 1024px) 60vw, 380px"
+            className="h-auto w-full max-w-[380px] justify-self-center"
           />
         </div>
       </Section>

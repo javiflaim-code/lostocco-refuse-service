@@ -2,9 +2,14 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { ButtonLink, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { CurbsideReminders, KeepItOutGrid, ResourceCards } from '@/components/content';
-import { keepOut, resources, site, unacceptableItemsUrl } from '@/lib/site';
+import {
+  keepOut,
+  referenceResources,
+  scheduleResources,
+  site,
+  unacceptableItemsUrl,
+} from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 export const metadata: Metadata = {
@@ -15,6 +20,16 @@ export const metadata: Metadata = {
 };
 
 /** The same restrictions as the PDF, readable here in plain HTML. */
+/** Materials that belong at a drop-off rather than in a roll-off container. */
+const handledElsewhere = [
+  'Paint — wet or dried, cans included',
+  'Chemicals, solvents and pool supplies',
+  'Tires, on or off the rim',
+  'Electronics — TVs, monitors, computers',
+  'Appliances containing refrigerant',
+  'Propane tanks and car batteries',
+];
+
 const unacceptableDetail = [
   {
     group: 'Construction & demolition',
@@ -61,7 +76,8 @@ export default function ResourcesPage() {
         eyebrow="Resources"
         title="Schedules and what goes where"
         lede="Every calendar, schedule and rule sheet in one place — plus the important parts written out here so you do not have to open a PDF to get an answer."
-        pose="calendar"
+        pose="frontLoader"
+        poseWidth="w-full max-w-[560px]"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="#downloads" variant="amber">
@@ -73,18 +89,16 @@ export default function ResourcesPage() {
         </div>
       </PageHero>
 
-      <Breadcrumb label="Resources" />
-
       {/* Downloads */}
       <Section tone="page" labelledBy="downloads-heading" id="downloads">
         <SectionHead
-          eyebrow={`${resources.length} documents`}
+          eyebrow="Calendars"
           title="Download a schedule"
-          lede="These open in a new tab. The recycling calendars are the two people ask for most — and if you are in Newtown, use the Newtown one."
+          lede="The dated ones. These open in a new tab — and if you are in Newtown, use the Newtown calendar, not the general one."
           id="downloads-heading"
         />
         <div className="mt-10">
-          <ResourceCards />
+          <ResourceCards items={scheduleResources} columns={3} />
         </div>
       </Section>
 
@@ -174,9 +188,9 @@ export default function ResourcesPage() {
       {/* Unacceptable items, in HTML */}
       <Section tone="bone" labelledBy="unacceptable">
         <SectionHead
-          eyebrow="Trash cart"
-          title="Unacceptable items"
-          lede="The six headline restrictions, then the full list grouped by type. This is the same content as the PDF, written out so you can read it here."
+          eyebrow="Residential carts"
+          title="What can’t go in your cart"
+          lede="These apply to the curbside trash and recycling carts at your house. The six headline restrictions first, then the full list grouped by type — the same content as the PDF, written out so you can read it here."
           id="unacceptable"
         />
 
@@ -223,6 +237,58 @@ export default function ResourcesPage() {
           shortest version: {keepOut.map((entry) => entry.item.toLowerCase()).join(', ')} stay out
           of the cart.
         </p>
+      </Section>
+
+      {/* What a container takes — moved here off the dumpsters and services pages */}
+      <Section tone="page" labelledBy="what-a-container-takes" id="what-a-container-takes">
+        <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
+          <div className="flex flex-col gap-6">
+            <SectionHead
+              eyebrow="Roll-off containers"
+              title="What a container takes"
+              lede="A roll-off handles nearly everything from a cleanout or a remodel. This short list belongs at a drop-off instead, and the town has a place for each of them."
+              id="what-a-container-takes"
+            />
+            <ul className="grid gap-3 xs:grid-cols-2">
+              {handledElsewhere.map((item) => (
+                <li key={item} className="card flex items-start gap-3 p-4">
+                  <span
+                    aria-hidden="true"
+                    className="display mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border-[3px] border-ink bg-warning px-3 py-1 text-[0.875rem] text-paper"
+                  >
+                    Nope!
+                  </span>
+                  <span className="text-[0.9375rem]">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="rounded-[14px] border-[3px] border-ink bg-paper px-4 py-3 text-[0.9375rem]">
+              A contaminated load can get a whole truck rejected. When a material is questionable,
+              leave it out and ask us.
+            </p>
+          </div>
+          <Image
+            src={poses.keepOut.src}
+            alt={poses.keepOut.alt}
+            width={poses.keepOut.width}
+            height={poses.keepOut.height}
+            sizes="(max-width: 1024px) 75vw, 340px"
+            className="h-auto w-full max-w-[340px] justify-self-center"
+          />
+        </div>
+      </Section>
+
+      {/* The reference sheets, as opposed to the dated calendars up top */}
+      <Section tone="mint" labelledBy="reference-heading">
+        <SectionHead
+          eyebrow="Good to know"
+          title="Rules, letters and drop-off days"
+          lede="The documents that are not calendars — worth a read once, rather than a check every week."
+          id="reference-heading"
+        />
+        <div className="mt-10">
+          <ResourceCards items={referenceResources} />
+        </div>
       </Section>
     </>
   );

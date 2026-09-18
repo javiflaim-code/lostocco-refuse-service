@@ -1,30 +1,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { ButtonLink, Numeral, PhotoFrame, Section, SectionHead } from '@/components/ui';
+import { ButtonLink, Numeral, Section, SectionHead } from '@/components/ui';
 import { Marquee } from '@/components/Marquee';
 import { PageHero } from '@/components/PageHero';
+import { RoccoIntro } from '@/components/RoccoIntro';
 import { CartSizes } from '@/components/CartSizes';
 import { DumpsterSwitcher } from '@/components/DumpsterSwitcher';
 import { ServiceAreaMapSection } from '@/components/ServiceAreaMapSection';
+import { Testimonials } from '@/components/Testimonials';
 import { BEAVER_NAME, services, site, towns } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 export const metadata = {
   title: 'LoStocco Refuse Service — Trash, Recycling & Dumpsters in Danbury, CT',
   description:
-    'Weekly trash, bi-weekly recycling and 10, 20 and 30 yard dumpster rentals across Danbury, Brookfield, Bethel, New Fairfield and Newtown. Family owned for forty years.',
+    'Weekly trash, bi-weekly recycling and 10, 20 and 30 yard dumpster rentals across Danbury, Brookfield, Bethel, New Fairfield and Newtown. Local, family owned, over 40 years.',
   alternates: { canonical: '/' },
 };
 
 const steps = [
   {
     title: 'Tell us where',
-    body: 'Give us the address and what you need — a cart at the house, a container at a jobsite, or service for a business.',
+    body: 'Give us the address and what you need — a cart at the house or a container in the driveway.',
   },
   {
     title: 'We quote it',
-    body: 'A real person calls back with a price and the pickup day. You will know exactly what it costs before we start.',
+    body: 'A real person calls back with a price and the pickup day. You will know the cost before we start.',
   },
   {
     title: 'We show up',
@@ -35,44 +37,36 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — same band as every other page, with the artwork on the left
-          so the headline and both calls to action stay above the fold. */}
       <PageHero
-        eyebrow="Family owned · Danbury, CT"
-        title="On time. Every week."
-        lede="Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five Connecticut towns. Same family, same trucks, four decades running."
+        eyebrow="Local · Family owned · Over 40 years"
+        title="Four decades on these roads."
+        lede="Weekly curbside trash, bi-weekly recycling and roll-off containers across five Connecticut towns. Same family, same trucks, the whole time."
         pose="heroRearStep"
         poseWidth="w-full max-w-[680px]"
-        artSide="left"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/contact" variant="amber">
-            Start Service
+            Get a Quote
           </ButtonLink>
           <ButtonLink href="/dumpsters" variant="paper">
             Rent a Dumpster
           </ButtonLink>
         </div>
-        <p className="text-[1rem] text-mint/85">
-          Or call{' '}
-          <a href={site.phoneHref} className="display text-amber">
-            {site.phone}
-          </a>{' '}
-          — {site.hours.weekdays}
-        </p>
       </PageHero>
 
       <Marquee />
+
+      <RoccoIntro />
 
       {/* What we do */}
       <Section tone="page" labelledBy="what-we-do">
         <SectionHead
           eyebrow="What we do"
-          title="Five services, done right"
-          lede="Residential, commercial, and everything in a roll-off container. If you are not sure which one you need, call and we will tell you."
+          title="Four services, done right"
+          lede="Residential pickup and everything that goes in a roll-off container. If you are not sure which one you need, call and we will tell you."
           id="what-we-do"
         />
-        <ul className="mt-10 grid gap-5 xs:grid-cols-2 md:grid-cols-3">
+        <ul className="mt-10 grid gap-5 xs:grid-cols-2 md:grid-cols-4">
           {services.map((service) => (
             <li key={service.slug} className="card card-lift flex flex-col">
               <Link href={`/services#${service.slug}`} className="flex h-full flex-col gap-3 p-6">
@@ -87,12 +81,12 @@ export default function HomePage() {
         </ul>
       </Section>
 
-      {/* Residential curbside — the main service, so it leads */}
+      {/* Weekly curbside — the service itself first, then the cart sizes */}
       <Section tone="mint" labelledBy="residential" id="residential">
         <SectionHead
           eyebrow="Weekly curbside"
-          title="Pick your cart size"
-          lede="Trash every week, recycling every other week, on the same day. Three cart sizes so you get the one that actually fits your household."
+          title="We pick up at the curb"
+          lede="Trash every week and recycling every other week, on the same day, at your house. Carts out the night before and the crew does the rest."
           id="residential"
         />
         <div className="mt-10">
@@ -100,32 +94,26 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Dumpster rentals */}
+      {/* Dumpster rentals — the truck leads, then the picker */}
       <Section tone="page" labelledBy="pick-a-size" id="sizes">
         <SectionHead
           eyebrow="Dumpster rentals"
-          title="Pick a container size"
-          lede="Ten, twenty or thirty yards, delivered where you want it. Most jobs land on the twenty."
+          title="Containers in the driveway"
+          lede="Ten, twenty or thirty yards, delivered where you want it and pulled when you are done. Most jobs land on the twenty."
           id="pick-a-size"
+        />
+        <Image
+          src={poses.rollOffAction.src}
+          alt={poses.rollOffAction.alt}
+          width={poses.rollOffAction.width}
+          height={poses.rollOffAction.height}
+          sizes="(max-width: 1024px) 94vw, 900px"
+          className="mx-auto mt-8 h-auto w-full max-w-[900px]"
         />
         <div className="mt-10">
           <Suspense fallback={<div className="min-h-[420px]" />}>
             <DumpsterSwitcher />
           </Suspense>
-        </div>
-        <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-          <Image
-            src={poses.rollOffAction.src}
-            alt={poses.rollOffAction.alt}
-            width={poses.rollOffAction.width}
-            height={poses.rollOffAction.height}
-            sizes="(max-width: 1024px) 92vw, 620px"
-            className="h-auto w-full max-w-[620px]"
-          />
-          <p className="max-w-[32ch] text-[0.9375rem] text-ink/75">
-            The red roll-off truck sets the container down where you want it and pulls it when you
-            are done.
-          </p>
         </div>
       </Section>
 
@@ -134,25 +122,31 @@ export default function HomePage() {
         <SectionHead
           eyebrow="Where we go"
           title="We’re in five towns"
-          lede={`${towns.map((t) => t.name).join(' · ')} — plus nearby areas. Pick a town to see how it runs.`}
+          lede={`${towns.map((t) => t.name).join(' · ')} — plus nearby areas.`}
           id="service-area"
         />
-        <div className="mt-10 grid gap-8 md:grid-cols-[auto_1fr] md:items-start md:gap-10">
+        <div className="mt-8 flex items-center gap-4">
           <Image
-            src={poses.map.src}
-            alt={poses.map.alt}
-            width={poses.map.width}
-            height={poses.map.height}
-            sizes="(max-width: 1024px) 50vw, 240px"
-            className="h-auto w-[180px] justify-self-center xs:w-[230px]"
+            src={poses.cuePoint.src}
+            alt=""
+            width={poses.cuePoint.width}
+            height={poses.cuePoint.height}
+            sizes="90px"
+            aria-hidden="true"
+            className="h-auto w-[72px] shrink-0 xs:w-[90px]"
           />
+          <p className="display text-[1.0625rem] text-forest">
+            Click your town to see how service runs there
+          </p>
+        </div>
+        <div className="mt-6">
           <Suspense fallback={<div className="min-h-[420px]" />}>
             <ServiceAreaMapSection />
           </Suspense>
         </div>
       </Section>
 
-      {/* Credibility: forty years, family run, and what customers say */}
+      {/* Credibility */}
       <Section tone="page" labelledBy="credibility">
         <div className="grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
           <Image
@@ -160,12 +154,12 @@ export default function HomePage() {
             alt={poses.badge.alt}
             width={poses.badge.width}
             height={poses.badge.height}
-            sizes="(max-width: 1024px) 45vw, 240px"
-            className="h-auto w-[180px] justify-self-center xs:w-[230px]"
+            sizes="(max-width: 1024px) 45vw, 260px"
+            className="h-auto w-[200px] justify-self-center xs:w-[260px]"
           />
           <div className="flex flex-col gap-6">
             <SectionHead
-              eyebrow="Forty years in"
+              eyebrow="Over 40 years in"
               title="A family name on every truck"
               lede="Joseph LoStocco III started this company and ran it for almost forty years. His children run it today, from the same yard on Beaver Brook Road."
               id="credibility"
@@ -180,13 +174,13 @@ export default function HomePage() {
               <div className="card flex flex-col gap-3 bg-mint p-5">
                 <dt className="display text-[0.875rem] text-forest">Trucks in the fleet</dt>
                 <dd>
-                  <Numeral>10</Numeral>
+                  <Numeral>10+</Numeral>
                 </dd>
               </div>
               <div className="card flex flex-col gap-3 bg-mint p-5">
-                <dt className="display text-[0.875rem] text-forest">Households served</dt>
+                <dt className="display text-[0.875rem] text-forest">Towns served</dt>
                 <dd>
-                  <Numeral>100s</Numeral>
+                  <Numeral>{towns.length}</Numeral>
                 </dd>
               </div>
             </dl>
@@ -199,20 +193,7 @@ export default function HomePage() {
         </div>
 
         <div className="mt-14">
-          <h3 className="display text-subsection text-forest">What people say</h3>
-          <ul className="mt-6 grid gap-5 md:grid-cols-3">
-            {[1, 2, 3].map((slot) => (
-              <li key={slot} className="card flex flex-col gap-4 bg-paper p-6">
-                <span className="display text-[0.875rem] text-forest" aria-hidden="true">
-                  ★★★★★
-                </span>
-                <PhotoFrame
-                  label={`Google review ${slot} — quote, name and town`}
-                  ratio="aspect-[5/3]"
-                />
-              </li>
-            ))}
-          </ul>
+          <Testimonials />
         </div>
       </Section>
 
@@ -241,7 +222,7 @@ export default function HomePage() {
           />
         </div>
         <div className="mt-8 flex flex-wrap gap-4">
-          <ButtonLink href="/contact">Start Service</ButtonLink>
+          <ButtonLink href="/contact">Get a Quote</ButtonLink>
           <ButtonLink href={site.phoneHref} variant="outline">
             Call {site.phone}
           </ButtonLink>
@@ -251,17 +232,28 @@ export default function HomePage() {
       {/* Closing CTA */}
       <section className="on-forest band bg-forest" aria-labelledby="closing-cta">
         <div className="wrap flex flex-col items-start gap-6 py-14 sm:py-16 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 id="closing-cta" className="display text-section text-paper">
-              Ready when you are
-            </h2>
-            <p className="mt-3 max-w-[48ch] text-lede text-mint">
-              {BEAVER_NAME} is standing by. So is the office, {site.hours.weekdays}
-            </p>
+          <div className="flex items-center gap-5">
+            <Image
+              src={poses.cueWave.src}
+              alt=""
+              width={poses.cueWave.width}
+              height={poses.cueWave.height}
+              sizes="110px"
+              aria-hidden="true"
+              className="hidden h-auto w-[110px] shrink-0 xs:block"
+            />
+            <div>
+              <h2 id="closing-cta" className="display text-section text-paper">
+                Ready when you are
+              </h2>
+              <p className="mt-3 max-w-[48ch] text-lede text-mint">
+                {BEAVER_NAME} is standing by. So is the office, {site.hours.weekdays}
+              </p>
+            </div>
           </div>
           <div className="flex flex-wrap gap-4">
             <ButtonLink href="/contact" variant="amber">
-              Start Service
+              Get a Quote
             </ButtonLink>
             <ButtonLink href={site.phoneHref} variant="paper">
               {site.phone}

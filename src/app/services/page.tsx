@@ -1,16 +1,15 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { ButtonLink, Placeholder, PhotoFrame, Section, SectionHead } from '@/components/ui';
+import { ButtonLink, Placeholder, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
-import { Breadcrumb } from '@/components/Breadcrumb';
 import { Marquee } from '@/components/Marquee';
-import { BEAVER_NAME, site, towns, unacceptableItemsUrl } from '@/lib/site';
+import { site, towns } from '@/lib/site';
 import { poses, type PoseKey } from '@/lib/poses';
 
 export const metadata: Metadata = {
-  title: 'Services — Trash, Recycling, Commercial & Dumpsters',
+  title: 'Services — Trash, Recycling & Dumpster Rentals',
   description:
-    'Weekly residential trash, bi-weekly recycling, commercial service and 10, 20 and 30 yard dumpster rentals in Danbury, Brookfield, Bethel, New Fairfield and Newtown, CT.',
+    'Weekly residential trash, bi-weekly recycling, 10, 20 and 30 yard dumpster rentals and bulk pickups in Danbury, Brookfield, Bethel, New Fairfield and Newtown, CT.',
   alternates: { canonical: '/services' },
 };
 
@@ -20,10 +19,9 @@ type Block = {
   lede: string;
   pose: PoseKey;
   points: string[];
-  note?: string;
   placeholder?: string;
   cta: { label: string; href: string };
-  photo: string;
+  secondary?: { label: string; href: string };
 };
 
 const blocks: Block[] = [
@@ -38,10 +36,8 @@ const blocks: Block[] = [
       'At least two feet between the trash and recycling carts',
       'Holiday weeks shift — the schedule is posted ahead of time',
     ],
-    note: 'Winter routes may run earlier or differently. When in doubt, put it out.',
-    placeholder: 'trash cart size in gallons',
     cta: { label: 'Start trash service', href: '/contact?service=start-trash' },
-    photo: 'crew at the curb',
+    secondary: { label: 'See the three cart sizes', href: '/#cart-sizes' },
   },
   {
     slug: 'recycling',
@@ -54,24 +50,8 @@ const blocks: Block[] = [
       'Flatten cardboard, empty and rinse containers',
       'Newtown runs its own calendar, separate from the other four towns',
     ],
-    note: 'A contaminated load can get the whole truck rejected. When a material is questionable, leave it out.',
-    placeholder: 'recycling cart size in gallons',
     cta: { label: 'Get the recycling calendar', href: '/resources' },
-    photo: 'recycling cart at the curb',
-  },
-  {
-    slug: 'commercial',
-    title: 'Commercial Trash & Recycling',
-    lede: 'Offices, restaurants, retail, contractors and multi-family buildings. We size the service to the volume.',
-    pose: 'frontLoader',
-    points: [
-      'Scheduled pickup, set to how fast you actually fill up',
-      'Containers sized to the space you have',
-      'Trash and recycling on one account',
-      'We adjust the frequency when your volume changes',
-    ],
-    cta: { label: 'Ask about commercial service', href: '/contact?service=commercial' },
-    photo: 'commercial container behind a building',
+    secondary: { label: 'See the three cart sizes', href: '/#cart-sizes' },
   },
   {
     slug: 'dumpster-rentals',
@@ -80,12 +60,11 @@ const blocks: Block[] = [
     pose: 'rollOffAction',
     points: [
       'Cleanouts, remodels, roofing and construction debris',
-      'We protect the driveway on delivery',
+      'We put boards down to protect the driveway',
       'Call when it is full and we will come pull it',
-      'No paint, chemicals, tires, electronics or appliances with refrigerant',
+      'Delivered to homes, job sites and commercial buildings',
     ],
     cta: { label: 'Compare the three sizes', href: '/dumpsters' },
-    photo: 'roll-off container on a driveway',
   },
   {
     slug: 'bulk-pickups',
@@ -95,18 +74,7 @@ const blocks: Block[] = [
     points: [],
     placeholder: 'confirm whether bulk and special pickups are offered, and how they are priced',
     cta: { label: 'Call and ask', href: site.phoneHref },
-    photo: 'bulk item at the curb',
   },
-];
-
-/** Materials that belong at a drop-off rather than in a cart or container. */
-const handledElsewhere = [
-  'Paint — wet or dried, cans included',
-  'Chemicals, solvents and pool supplies',
-  'Tires, on or off the rim',
-  'Electronics — TVs, monitors, computers',
-  'Appliances containing refrigerant',
-  'Propane tanks and car batteries',
 ];
 
 export default function ServicesPage() {
@@ -115,12 +83,12 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Everything we haul"
-        lede="Residential and commercial trash, recycling, and roll-off containers across five Connecticut towns. Call us and a person picks up."
+        lede="Residential trash, recycling and roll-off containers across five Connecticut towns. Call us and a person picks up."
         pose={['rearLoader', 'rollOff']}
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/contact" variant="amber">
-            Start Service
+            Get a Quote
           </ButtonLink>
           <ButtonLink href={site.phoneHref} variant="paper">
             {site.phone}
@@ -128,38 +96,45 @@ export default function ServicesPage() {
         </div>
       </PageHero>
 
-      <Breadcrumb label="Services" />
+      <Marquee items={['Residential trash', 'Recycling', 'Roll-off dumpsters', 'Bulk pickups']} />
 
-      <Marquee
-        items={[
-          'Residential trash',
-          'Recycling',
-          'Commercial service',
-          'Roll-off dumpsters',
-          'Bulk pickups',
-        ]}
-      />
-
-      {/* Jump links */}
-      <div className="band bg-page py-6">
-        <nav aria-label="Jump to a service" className="wrap flex flex-wrap gap-3">
-          {blocks.map((block) => (
-            <a
-              key={block.slug}
-              href={`#${block.slug}`}
-              className="display inline-flex min-h-[44px] items-center rounded-full border-[2.5px] border-ink bg-paper px-5 text-[0.875rem] text-forest hover:bg-mint"
-            >
-              {block.title}
-            </a>
-          ))}
-        </nav>
-      </div>
+      {/* The jump links get their own section and say what they are for */}
+      <Section tone="page" labelledBy="pick-a-service">
+        <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:gap-8">
+          <Image
+            src={poses.cuePoint.src}
+            alt=""
+            width={poses.cuePoint.width}
+            height={poses.cuePoint.height}
+            sizes="110px"
+            aria-hidden="true"
+            className="h-auto w-[84px] shrink-0 xs:w-[110px]"
+          />
+          <div className="flex flex-col gap-4">
+            <h2 id="pick-a-service" className="display text-subsection text-forest">
+              Here are the four things we do
+            </h2>
+            <p className="text-lede text-ink/85">Click the one you came for.</p>
+            <nav aria-label="Jump to a service" className="flex flex-wrap gap-3">
+              {blocks.map((block) => (
+                <a
+                  key={block.slug}
+                  href={`#${block.slug}`}
+                  className="display inline-flex min-h-[48px] items-center rounded-full border-[3px] border-ink bg-paper px-5 text-[0.9375rem] text-forest transition-colors hover:bg-forest hover:text-paper"
+                >
+                  {block.title}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </Section>
 
       {blocks.map((block, index) => (
         <Section
           key={block.slug}
           id={block.slug}
-          tone={index % 2 === 0 ? 'page' : 'mint'}
+          tone={index % 2 === 0 ? 'mint' : 'page'}
           labelledBy={`${block.slug}-heading`}
         >
           <div
@@ -168,12 +143,7 @@ export default function ServicesPage() {
             }`}
           >
             <div className="flex flex-col gap-5">
-              <SectionHead
-                eyebrow={`0${index + 1}`}
-                title={block.title}
-                lede={block.lede}
-                id={`${block.slug}-heading`}
-              />
+              <SectionHead title={block.title} lede={block.lede} id={`${block.slug}-heading`} />
 
               {block.points.length > 0 ? (
                 <ul className="flex flex-col gap-2.5">
@@ -190,108 +160,45 @@ export default function ServicesPage() {
 
               {block.placeholder ? <Placeholder label={block.placeholder} /> : null}
 
-              {block.note ? (
-                <p className="rounded-[14px] border-[3px] border-ink bg-paper px-4 py-3 text-[0.9375rem]">
-                  {block.note}
-                </p>
-              ) : null}
-
-              <div>
+              <div className="flex flex-wrap gap-3">
                 <ButtonLink href={block.cta.href} variant="forest">
                   {block.cta.label}
                 </ButtonLink>
+                {block.secondary ? (
+                  <ButtonLink href={block.secondary.href} variant="outline">
+                    {block.secondary.label}
+                  </ButtonLink>
+                ) : null}
               </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-              <Image
-                src={poses[block.pose].src}
-                alt={poses[block.pose].alt}
-                width={poses[block.pose].width}
-                height={poses[block.pose].height}
-                sizes="(max-width: 1024px) 80vw, 460px"
-                className="h-auto w-full max-w-[420px] justify-self-center"
-              />
-              <PhotoFrame label={block.photo} />
-            </div>
+            <Image
+              src={poses[block.pose].src}
+              alt={poses[block.pose].alt}
+              width={poses[block.pose].width}
+              height={poses[block.pose].height}
+              sizes="(max-width: 1024px) 94vw, 640px"
+              className="h-auto w-full"
+            />
           </div>
         </Section>
       ))}
-
-      {/* What a container takes — moved off the dumpsters page, which sells */}
-      <Section tone="bone" labelledBy="restrictions" id="restrictions">
-        <SectionHead
-          eyebrow="Good to know"
-          title="What a container takes"
-          lede="A roll-off handles almost everything from a cleanout or a remodel. A short list of materials goes elsewhere, and the town has a place for each of them."
-          id="restrictions"
-        />
-        <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-start md:gap-12">
-          <div className="flex flex-col gap-6">
-            <ul className="grid gap-3 xs:grid-cols-2">
-              {handledElsewhere.map((item) => (
-                <li key={item} className="card flex items-start gap-3 p-4">
-                  <span
-                    aria-hidden="true"
-                    className="display mt-0.5 inline-flex shrink-0 items-center justify-center rounded-full border-[3px] border-ink bg-warning px-3 py-1 text-[0.875rem] text-paper"
-                  >
-                    Nope!
-                  </span>
-                  <span className="text-[0.9375rem]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="max-w-[62ch] text-[0.9375rem]">
-              {BEAVER_NAME} would rather flag it now than leave it at your curb. Call{' '}
-              <a
-                href={site.phoneHref}
-                className="font-semibold text-forest underline underline-offset-4"
-              >
-                {site.phone}
-              </a>{' '}
-              and we will point you to the right drop-off, or see the{' '}
-              <a
-                href={unacceptableItemsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-forest underline underline-offset-4"
-              >
-                full list (PDF)
-              </a>
-              .
-            </p>
-            <div>
-              <ButtonLink href="/resources" variant="forest">
-                All schedules and rules
-              </ButtonLink>
-            </div>
-          </div>
-          <Image
-            src={poses.keepOut.src}
-            alt={poses.keepOut.alt}
-            width={poses.keepOut.width}
-            height={poses.keepOut.height}
-            sizes="(max-width: 1024px) 75vw, 340px"
-            className="h-auto w-full max-w-[340px] justify-self-center"
-          />
-        </div>
-      </Section>
 
       {/* Where */}
       <Section tone="forest" labelledBy="services-towns">
         <SectionHead
           eyebrow="Coverage"
-          title="Every service, all five towns"
-          lede={`${towns.map((t) => t.name).join(' · ')}, plus nearby areas.`}
+          title="All five towns"
+          lede={`${towns.map((t) => t.name).join(' · ')}, plus nearby areas. Pick your town to see how service runs there.`}
           tone="paper"
           id="services-towns"
         />
         <div className="mt-8 flex flex-wrap gap-4">
-          <ButtonLink href="/service-area" variant="amber">
-            See the service area
+          <ButtonLink href="/#service-area" variant="amber">
+            Pick your town
           </ButtonLink>
           <ButtonLink href="/contact" variant="paper">
-            Start Service
+            Get a Quote
           </ButtonLink>
         </div>
       </Section>
