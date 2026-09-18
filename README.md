@@ -36,10 +36,10 @@ Then open <http://localhost:3000>.
 | Path | Page |
 | --- | --- |
 | `/` | Home |
-| `/services` | Residential, recycling, commercial, dumpsters, bulk |
-| `/dumpsters` | 10 / 20 / 30 yard comparison + rental request form |
+| `/services` | Residential, recycling, dumpsters, bulk |
+| `/dumpsters` | 10 / 20 / 30 yard comparison, driveway protection |
 | `/service-area` | Five-town map, per-town detail, address checker |
-| `/resources` | Eight PDFs plus the rules written out in HTML |
+| `/resources` | Calendars, reference PDFs, rules written out in HTML |
 | `/about` | Family story, the fleet, HRRA licence |
 | `/pay-bill` | Hand-off to the existing payment portal |
 | `/contact` | Start-service form, hours, address, embedded map |
@@ -108,7 +108,7 @@ Change it there and it changes everywhere.
 
 ## Swapping the form endpoint
 
-Both forms (contact/start-service, and the dumpster request) share one
+The contact / start-service form is one
 component, `src/components/ContactForm.tsx`, which posts JSON to a single
 endpoint read from an environment variable:
 
