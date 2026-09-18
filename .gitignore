@@ -31,6 +31,9 @@ yarn-error.log*
 # notes, and this repository is public.
 /poses/
 /poses 2/
+/joseph-lostocco-danbury-ct-obituary-1920w.webp
+*.docx
+/poses_NEW_0918/
 /Images/
 /LoStocco Beaver Mascot Design*.zip
 /LoStocco Beaver Prompt Pack*.html
@@ -41,3 +44,4 @@ yarn-error.log*
 
 # Meeting notes and transcripts — internal, and this repository is public.
 *.rtf
+/Transcript of Website Edits_*.md

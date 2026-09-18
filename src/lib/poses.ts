@@ -9,9 +9,9 @@ export const poses = {
   /** Wide hero banner: the truck on the left, Rocco on the right. */
   heroRearStep: {
     src: '/poses/hero-rear-step.png',
-    width: 966,
-    height: 544,
-    alt: 'Rocco the LoStocco beaver in a hi-vis vest, riding the rear step of a green LoStocco packer truck and waving.',
+    width: 1400,
+    height: 788,
+    alt: 'Rocco the LoStocco beaver in a hi-vis vest, waving from the rear step of a LoStocco packer truck.',
   },
   hero: {
     src: '/poses/hero.png',
@@ -42,9 +42,16 @@ export const poses = {
   },
   measuring: {
     src: '/poses/dumpster-size.png',
-    width: 779,
-    height: 974,
-    alt: 'Rocco the LoStocco beaver in a tool belt, running a tape measure along the top rail of a green roll-off container.',
+    width: 1400,
+    height: 1050,
+    alt: 'Rocco the LoStocco beaver in a tool belt, running a tape measure along the top rail of a full-length green LoStocco roll-off container.',
+  },
+  /** Plywood under the rollers — the thing people actually worry about. */
+  drivewayProtection: {
+    src: '/poses/driveway-protection.png',
+    width: 1254,
+    height: 1254,
+    alt: 'Rocco the LoStocco beaver kneeling to point at the plywood boards set under the rollers of a green roll-off container on a driveway.',
   },
 
   /** Trucks at work. */
@@ -52,7 +59,7 @@ export const poses = {
     src: '/poses/rear-loader-in-action.png',
     width: 1400,
     height: 788,
-    alt: 'Rocco the LoStocco beaver on the back of a green rear-loader packer, tipping a bag in, with a LoStocco cart at the kerb.',
+    alt: 'Rocco the LoStocco beaver on the back of a green rear-loader packer, tipping a bag in, with a LoStocco cart at the curb.',
   },
   rollOffAction: {
     src: '/poses/roll-off-in-action.png',
@@ -66,11 +73,18 @@ export const poses = {
     height: 788,
     alt: 'Rocco the LoStocco beaver in a hi-vis vest beside a green LoStocco front-loader truck with its forks lowered.',
   },
+  /** The one real photograph on the site. */
+  josephPhoto: {
+    src: '/photos/joseph-lostocco-iii.webp',
+    width: 565,
+    height: 650,
+    alt: 'Joseph LoStocco III, who founded and ran LoStocco Refuse Service.',
+  },
   rearLoader: {
     src: '/poses/rear-loader-truck.png',
     width: 700,
     height: 467,
-    alt: 'Rocco the LoStocco beaver waving from the cab of a green LoStocco rear-loader packer truck, with a trash cart at the kerb.',
+    alt: 'Rocco the LoStocco beaver waving from the cab of a green LoStocco rear-loader packer truck, with a trash cart at the curb.',
   },
   rollOff: {
     src: '/poses/roll-off-truck.png',
@@ -83,7 +97,7 @@ export const poses = {
     src: '/poses/cant-go-in.png',
     width: 700,
     height: 525,
-    alt: 'Rocco the LoStocco beaver in a hi-vis vest beside a trash cart, holding up a hand in front of a pile of tyres, paint, a propane tank, a car battery, lumber and a broken chair under a red no symbol.',
+    alt: 'Rocco the LoStocco beaver in a hi-vis vest beside a trash cart, holding up a hand in front of a pile of tires, paint, a propane tank, a car battery, lumber and a broken chair under a red no symbol.',
   },
   recycling: {
     src: '/poses/recycling-tips.png',
@@ -135,6 +149,24 @@ export const poses = {
     alt: 'The adult LoStocco beaver with two young beavers in green shirts, one holding a small LoStocco recycling bin.',
   },
 
+  cuePeek: {
+    src: '/poses/scroll-cue-peek.png',
+    width: 175,
+    height: 283,
+    alt: '',
+  },
+  cuePoint: {
+    src: '/poses/scroll-cue-point.png',
+    width: 205,
+    height: 290,
+    alt: '',
+  },
+  cueWave: {
+    src: '/poses/scroll-cue-wave.png',
+    width: 227,
+    height: 286,
+    alt: '',
+  },
   threePoses: {
     src: '/poses/scroll-cues.png',
     width: 700,
