@@ -9,8 +9,8 @@ export const poses = {
   /** Wide hero banner: the truck on the left, Rocco on the right. */
   heroRearStep: {
     src: '/poses/hero-rear-step.png',
-    width: 1400,
-    height: 788,
+    width: 1600,
+    height: 944,
     alt: 'Rocco the LoStocco beaver in a hi-vis vest, waving from the rear step of a LoStocco packer truck.',
   },
   hero: {

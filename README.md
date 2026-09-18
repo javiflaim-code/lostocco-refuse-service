@@ -88,6 +88,14 @@ Two rules worth keeping:
   element that already has `.display`, set `tracking-[0.05em]` explicitly —
   letter-spacing inherits as a pixel value, so a larger child ends up tighter
   than it looks.
+- **Never put `scroll-behavior: smooth` on `html`.** The App Router scrolls a
+  new page to the top by calling `scrollIntoView` on each section from the
+  bottom up, so the last call is the one that lands you at the top. Smooth makes
+  every one of those an animation, and an animation in flight gets cancelled by
+  the layout shift from a streaming Suspense boundary or a late image — which
+  leaves the reader stranded partway down the page they just opened. Instant
+  scrolling lands on the band every time. `scroll-padding-top` stays; that is
+  what keeps in-page anchors clear of the sticky header.
 - **Amber is a fill, not a text color on light surfaces.** `#F2A50C` on white or
   mint is about 2:1, well under AA. Amber text is only used on `forest` and
   `ink`. On light surfaces use `forest`, or put the amber behind ink type — see
@@ -173,6 +181,12 @@ confirming before it goes live.
 
 The v4 set arrives cut out, so it drops straight into `public/poses/`. Source
 files live in `poses_NEW_0918/` and keep their names.
+
+The homepage banner is `hero-rear-step_NEW`, trimmed to its content before it
+was resized — the delivered file carries about 11% dead transparency down the
+left edge, which reads as the truck sitting small and off-center in its column.
+Trim first, then resize, then update the width and height in `src/lib/poses.ts`
+so `next/image` reserves the right box.
 
 - [ ] `front-loader` still carries a strip of asphalt under the truck, so it has
       a slightly boxy lower edge on light sections.

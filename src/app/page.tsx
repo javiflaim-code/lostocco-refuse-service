@@ -42,7 +42,8 @@ export default function HomePage() {
         title="Four decades on these roads."
         lede="Weekly curbside trash, bi-weekly recycling and roll-off containers across five Connecticut towns. Same family, same trucks, the whole time."
         pose="heroRearStep"
-        poseWidth="w-full max-w-[680px]"
+        poseWidth="w-full max-w-[720px]"
+        artColumn="wide"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href="/contact" variant="amber">

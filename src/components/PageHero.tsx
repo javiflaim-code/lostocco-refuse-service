@@ -20,6 +20,7 @@ export function PageHero({
   pose,
   poseWidth = 'w-[260px] xs:w-[320px] md:w-[400px]',
   artSide = 'right',
+  artColumn = 'default',
   children,
 }: {
   eyebrow: string;
@@ -28,6 +29,12 @@ export function PageHero({
   pose: PoseKey | [PoseKey, PoseKey];
   poseWidth?: string;
   artSide?: 'left' | 'right';
+  /**
+   * `wide` gives the art a bigger share of the row. Only worth it for a full
+   * landscape banner — a pose that is capped by its own `max-w` gains nothing
+   * and the copy beside it just gets narrower.
+   */
+  artColumn?: 'default' | 'wide';
   children?: ReactNode;
 }) {
   const pair = Array.isArray(pose);
@@ -46,9 +53,13 @@ export function PageHero({
             : wideArt
               ? // A landscape banner earns the wider column; the copy beside it
                 // still has room without the band getting any taller.
-                artFirst
-                ? 'md:grid-cols-[1.35fr_1fr]'
-                : 'md:grid-cols-[1fr_1.35fr]'
+                artColumn === 'wide'
+                ? artFirst
+                  ? 'md:grid-cols-[1.5fr_1fr]'
+                  : 'md:grid-cols-[1fr_1.5fr]'
+                : artFirst
+                  ? 'md:grid-cols-[1.35fr_1fr]'
+                  : 'md:grid-cols-[1fr_1.35fr]'
               : 'md:grid-cols-[1fr_1fr]'
         }`}
       >
@@ -102,7 +113,9 @@ export function PageHero({
               priority
               sizes={
                 wideArt
-                  ? '(max-width: 768px) 92vw, (max-width: 1024px) 60vw, 680px'
+                  ? artColumn === 'wide'
+                    ? '(max-width: 768px) 92vw, (max-width: 1024px) 60vw, 720px'
+                    : '(max-width: 768px) 92vw, (max-width: 1024px) 60vw, 560px'
                   : '(max-width: 768px) 65vw, (max-width: 1024px) 45vw, 400px'
               }
               className={`h-auto ${poseWidth} ${wideArt && !artFirst ? 'md:ml-auto' : ''}`}
