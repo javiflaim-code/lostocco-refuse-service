@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { ButtonLink, Numeral, PhotoFrame, Section, SectionHead } from '@/components/ui';
+import { ButtonLink, Numeral, Section, SectionHead } from '@/components/ui';
 import { PageHero } from '@/components/PageHero';
 import { Breadcrumb } from '@/components/Breadcrumb';
-import { BEAVER_NAME, site } from '@/lib/site';
+import { site } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function PayBillPage() {
         eyebrow="Billing"
         title="Pay your bill"
         lede="Payments are handled on our billing provider’s secure page. Or call the office and we will take it over the phone — some people prefer that, and that is fine."
-        pose="portrait"
+        pose="payBill"
       >
         <div className="flex flex-wrap gap-4">
           <ButtonLink href={site.payBillUrl} variant="amber">
@@ -65,21 +65,14 @@ export default function PayBillPage() {
               </ButtonLink>
             </div>
           </div>
-          <div className="flex flex-col items-center gap-4">
-            <Image
-              src={poses.standing.src}
-              alt={poses.standing.alt}
-              width={poses.standing.width}
-              height={poses.standing.height}
-              sizes="(max-width: 1024px) 45vw, 210px"
-              className="h-auto w-[160px] xs:w-[200px]"
-            />
-            <PhotoFrame
-              label={`new ${BEAVER_NAME} artwork for Pay Bill`}
-              ratio="aspect-[4/5]"
-              className="w-[180px]"
-            />
-          </div>
+          <Image
+            src={poses.standing.src}
+            alt={poses.standing.alt}
+            width={poses.standing.width}
+            height={poses.standing.height}
+            sizes="(max-width: 1024px) 45vw, 210px"
+            className="h-auto w-[160px] justify-self-center xs:w-[200px]"
+          />
         </div>
       </Section>
 

@@ -34,25 +34,22 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — truck on the left, headline in the middle, Rocco on the right.
-          On narrow screens the headline leads and the two pieces of art share
-          the row beneath it. */}
+      {/* Hero — the headline, then the banner: truck on the left, Rocco on
+          the right, drawn as one piece. */}
       <section className="on-forest band bg-forest" aria-labelledby="hero-heading">
-        <div className="wrap grid grid-cols-2 items-center gap-6 py-10 sm:py-12 md:grid-cols-[0.95fr_1.3fr_0.75fr] md:gap-8 md:py-14">
-          <div className="order-1 col-span-2 flex flex-col items-start gap-5 md:order-2 md:col-span-1 md:items-center md:text-center">
+        <div className="wrap flex flex-col items-center gap-8 py-10 text-center sm:py-12 md:py-14">
+          <div className="flex flex-col items-center gap-5">
             <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.9375rem] text-amber">
               Family owned · Danbury, CT
             </p>
             <h1 id="hero-heading" className="display display--hero text-hero text-paper">
-              On time.
-              <br />
-              Every week.
+              On time. Every week.
             </h1>
-            <p className="max-w-[44ch] text-lede text-mint">
+            <p className="max-w-[52ch] text-lede text-mint">
               Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five
               Connecticut towns. Same family, same trucks, four decades running.
             </p>
-            <div className="flex flex-wrap gap-4 md:justify-center">
+            <div className="flex flex-wrap justify-center gap-4">
               <ButtonLink href="/contact" variant="amber">
                 Start Service
               </ButtonLink>
@@ -69,29 +66,15 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="order-2 flex items-end justify-center md:order-1 md:justify-start">
-            <Image
-              src={poses.rearLoader.src}
-              alt={poses.rearLoader.alt}
-              width={poses.rearLoader.width}
-              height={poses.rearLoader.height}
-              priority
-              sizes="(max-width: 768px) 46vw, 400px"
-              className="h-auto w-full max-w-[400px]"
-            />
-          </div>
-
-          <div className="order-3 flex items-end justify-center md:justify-end">
-            <Image
-              src={poses.hero.src}
-              alt={poses.hero.alt}
-              width={poses.hero.width}
-              height={poses.hero.height}
-              priority
-              sizes="(max-width: 768px) 40vw, 260px"
-              className="h-auto w-full max-w-[180px] motion-safe:animate-bob xs:max-w-[220px] md:max-w-[260px]"
-            />
-          </div>
+          <Image
+            src={poses.heroRearStep.src}
+            alt={poses.heroRearStep.alt}
+            width={poses.heroRearStep.width}
+            height={poses.heroRearStep.height}
+            priority
+            sizes="(max-width: 1024px) 96vw, 1000px"
+            className="h-auto w-full max-w-[1000px]"
+          />
         </div>
       </section>
 
@@ -146,18 +129,18 @@ export default function HomePage() {
             <DumpsterSwitcher />
           </Suspense>
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
           <Image
-            src={poses.rollOff.src}
-            alt={poses.rollOff.alt}
-            width={poses.rollOff.width}
-            height={poses.rollOff.height}
-            sizes="(max-width: 1024px) 90vw, 520px"
-            className="h-auto w-full max-w-[520px]"
+            src={poses.rollOffAction.src}
+            alt={poses.rollOffAction.alt}
+            width={poses.rollOffAction.width}
+            height={poses.rollOffAction.height}
+            sizes="(max-width: 1024px) 92vw, 620px"
+            className="h-auto w-full max-w-[620px]"
           />
-          <p className="max-w-[34ch] text-[0.9375rem] text-ink/75">
-            The red roll-off truck drops the container where you want it and pulls it when you are
-            done.
+          <p className="max-w-[32ch] text-[0.9375rem] text-ink/75">
+            The red roll-off truck sets the container down where you want it and pulls it when you
+            are done.
           </p>
         </div>
       </Section>

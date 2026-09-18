@@ -31,7 +31,7 @@ const blocks: Block[] = [
     slug: 'residential-trash',
     title: 'Residential Trash',
     lede: 'One cart, one pickup day, every week. The same truck and the same crew on your street.',
-    pose: 'standing',
+    pose: 'rearLoaderAction',
     points: [
       'Weekly curbside collection at your house',
       'Carts out at the curb the night before',
@@ -63,7 +63,7 @@ const blocks: Block[] = [
     slug: 'commercial',
     title: 'Commercial Trash & Recycling',
     lede: 'Offices, restaurants, retail, contractors and multi-family buildings. We size the service to the volume.',
-    pose: 'calendar',
+    pose: 'frontLoader',
     points: [
       'Scheduled pickup, set to how fast you actually fill up',
       'Containers sized to the space you have',
@@ -77,7 +77,7 @@ const blocks: Block[] = [
     slug: 'dumpster-rentals',
     title: 'Dumpster Rentals',
     lede: 'Ten, twenty and thirty yard roll-off containers, delivered where you need them and pulled when you are done.',
-    pose: 'measuring',
+    pose: 'rollOffAction',
     points: [
       'Cleanouts, remodels, roofing and construction debris',
       'We protect the driveway on delivery',

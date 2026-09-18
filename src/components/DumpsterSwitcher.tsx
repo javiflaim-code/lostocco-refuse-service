@@ -13,24 +13,6 @@ function isSize(value: string | null): value is DumpsterSize {
   return value !== null && (sizes as readonly string[]).includes(value);
 }
 
-/**
- * Roll-offs are long rather than tall — a 30 yard is about the height of a
- * person but nearly twice as long as a 10 yard. The silhouette is drawn on a
- * shared stage in those proportions, with Rocco at six feet as the ruler, so
- * the three sizes read honestly against each other.
- */
-const STAGE_FEET = 26;
-const STAGE_HEIGHT_FEET = 8;
-const ROCCO_FEET = 6;
-
-const proportions: Record<DumpsterSize, { lengthFt: number; heightFt: number }> = {
-  '10': { lengthFt: 12, heightFt: 3.5 },
-  '20': { lengthFt: 22, heightFt: 4.5 },
-  '30': { lengthFt: 22, heightFt: 6 },
-};
-
-const pct = (value: number, of: number) => `${(value / of) * 100}%`;
-
 export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -39,7 +21,6 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
   const raw = searchParams.get('size');
   const active: DumpsterSize = isSize(raw) ? raw : '20';
   const current = dumpsters.find((d) => d.size === active) ?? dumpsters[1];
-  const shape = proportions[active];
 
   const select = useCallback(
     (size: DumpsterSize) => {
@@ -122,41 +103,18 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
         {showScale ? (
           <div className="flex flex-col gap-4">
             <div className="card flex flex-col bg-mint p-6 xs:p-8">
-              <p className="display mb-5 text-[0.875rem] text-forest">
-                {BEAVER_NAME} at scale — {current.label}
-              </p>
-
-              {/* Shared stage: 26 ft wide, 8 ft tall. Rocco is six feet. */}
-              <div
-                className="flex w-full items-end gap-3"
-                style={{ aspectRatio: `${STAGE_FEET} / ${STAGE_HEIGHT_FEET}` }}
-              >
-                <div className="flex h-full items-end" style={{ width: pct(3, STAGE_FEET) }}>
-                  <Image
-                    src={poses.standing.src}
-                    alt={poses.standing.alt}
-                    width={poses.standing.width}
-                    height={poses.standing.height}
-                    sizes="90px"
-                    style={{ height: pct(ROCCO_FEET, STAGE_HEIGHT_FEET) }}
-                    className="w-auto max-w-none object-contain object-bottom"
-                  />
-                </div>
-                <div
-                  className="flex items-center justify-center rounded-[8px] border-[3px] border-ink bg-forest transition-all duration-200"
-                  style={{
-                    width: pct(shape.lengthFt, STAGE_FEET),
-                    height: pct(shape.heightFt, STAGE_HEIGHT_FEET),
-                  }}
-                >
-                  <span className="display text-[1rem] text-amber">{current.label}</span>
-                </div>
-              </div>
-
+              <p className="display mb-5 text-[0.875rem] text-forest">All three, to scale</p>
+              <Image
+                src={poses.dumpsterSizes.src}
+                alt={poses.dumpsterSizes.alt}
+                width={poses.dumpsterSizes.width}
+                height={poses.dumpsterSizes.height}
+                sizes="(max-width: 1024px) 92vw, 520px"
+                className="h-auto w-full"
+              />
               <p className="mt-5 text-[0.9375rem] text-ink/75">
-                Typical proportions, with {BEAVER_NAME} at six feet for comparison. A 30 yard is
-                about as tall as you are and roughly twice the length of a 10 yard. Exact dimensions
-                are coming from the yard.
+                A 30 yard is about as tall as {BEAVER_NAME} and roughly twice the length of a 10
+                yard. Exact dimensions are coming from the yard.
               </p>
             </div>
           </div>
