@@ -141,58 +141,42 @@ changes; no component edits.
 
 ## What the client still needs to provide
 
-Gaps render on the site as visibly marked `[PLACEHOLDER — …]` or `[PHOTO — …]`
-blocks. Fill the values into `src/lib/site.ts` (or the noted component) and
-delete the placeholder.
+Gaps render on the site as visibly marked `[PLACEHOLDER — …]` blocks.
+
+### Open questions
+
+- [ ] **Are bulk / special pickups offered, and how are they priced?** Listed on
+      the services page with a placeholder rather than described.
+- [ ] **Which cart sizes apply to trash vs recycling.** 45 / 65 / 95 gallon came
+      off LoStocco's own site; the source does not say which service each is for,
+      so the site presents them as the sizes available.
+- [ ] **Is commercial collection offered?** Removed sitewide — it appears nowhere
+      on their own site. Front-loader artwork exists, so it may be worth asking.
+- [ ] **Second phone number.** `203-295-7155` appears publicly in places. The site
+      uses `203-743-9940` only.
+- [ ] **HRRA licence.** The copy published on the old site expired in 2024. The
+      credential appears only on the About page.
+
+> **Fleet and household figures are agency estimates, not client-confirmed.**
+> The site shows "40+" years, "10+" trucks and five towns. The 40 years and the
+> five towns are from LoStocco's own material; the truck count is a placeholder.
+
+### Testimonials
+
+The four quotes on the homepage are **real published comments** from Angi and
+Facebook, quoted as written and attributed. Two further Nextdoor quotes are in
+the source document and were left off — one carries a monthly price that would
+need confirming before it goes live.
 
 ### Artwork
 
-The v3 set from the illustrator is in. Source files live in `poses 2/` and keep
-their names in `public/poses/`, so a replacement drops straight in.
+The v4 set arrives cut out, so it drops straight into `public/poses/`. Source
+files live in `poses_NEW_0918/` and keep their names.
 
-**One thing to know before replacing art:** the v3 files were exported flattened
-onto white rather than cut out. `public/poses/` holds background-removed copies.
-If you drop a new white-background file in directly it will show as a white slab
-on the forest bands — remove the background first, or ask for the export with
-transparency.
-
-Still outstanding:
-
-- [ ] **Small directional poses** — Rocco peeking over a card or pointing at a button
-- [ ] The `front-loader` art includes a strip of asphalt under the truck, so it
-      reads as a slightly boxy edge on light sections. Fine as is; a cut-out
-      version would sit better.
-
-### Numbers still unconfirmed
-
-- [ ] **Which cart sizes apply to trash vs recycling.** 45 / 65 / 95 gallon came off LoStocco's own site, but the source does not say which service each belongs to.
-- [ ] **Dumpster dimensions** (L × W × H) for 10, 20 and 30 yard — `dumpsters[].dimensions`
-- [ ] **Pickup-truck-load equivalent** for each dumpster size — `dumpsters[].truckLoads`
-- [ ] **Rental period, daily rate and tonnage allowance** — Dumpsters page
-- [ ] **The year Joe founded the company / how many years he ran it** — About page
-- [ ] **HRRA licence status.** The copy published on the old site expired in 2024. The credential now appears only on the About page, with a placeholder flagging this.
-
-> **Fleet and household counts are currently 10 trucks and "100s of households."**
-> These were supplied by the agency, not confirmed by LoStocco. Worth verifying
-> before the site is promoted — a customer or competitor can quote them back.
-
-### Decisions
-
-- [ ] **Are bulk / special pickups offered?** Listed with a placeholder rather than described, because it could not be confirmed. If the answer is no, remove the `bulk-pickups` entry from `services` in `src/lib/site.ts` and the matching block on the Services page.
-- [ ] **Second phone number.** `203-295-7155` appears publicly in some places. The site uses `203-743-9940` only.
-
-### Reviews
-
-- [ ] **Three real Google reviews** — quote plus name and town. Three marked slots on the homepage.
-
-### Photos
-
-Each is a styled empty frame with a label, never a stretched stock image.
-
-- [ ] Packer truck on route · roll-off delivery · container on a driveway
-- [ ] Crew at the curb · recycling cart at the curb · commercial container
-- [ ] The yard on Beaver Brook Road
-- [ ] Joseph LoStocco III · Joseph IV · Maria
+- [ ] `front-loader` still carries a strip of asphalt under the truck, so it has
+      a slightly boxy lower edge on light sections.
+- [ ] A dedicated hero pose for the Resources page — it currently borrows the
+      front loader, since the Santa/calendar drawing only suits a holiday context.
 
 ---
 
