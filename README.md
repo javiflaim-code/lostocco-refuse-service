@@ -145,17 +145,23 @@ Gaps render on the site as visibly marked `[PLACEHOLDER — …]` or `[PHOTO —
 blocks. Fill the values into `src/lib/site.ts` (or the noted component) and
 delete the placeholder.
 
-### Artwork still to come
+### Artwork
 
-Six pieces were requested in review and are not drawn yet. Each has a labelled
-slot on the page, so dropping the file in is the only step left.
+The v3 set from the illustrator is in. Source files live in `poses 2/` and keep
+their names in `public/poses/`, so a replacement drops straight in.
 
-- [ ] **Cart sizes cartoon** — Rocco beside the 45, 65 and 95 gallon carts (homepage, residential row)
-- [ ] **Dumpster with depth** — the current hero art reads flat, with no width behind it (Dumpsters hero)
-- [ ] **Rocco over each bin** — head and paws over the rim of the 10, 20 and 30 yard containers
-- [ ] **Pay Bill pose** — currently borrows the head-and-shoulders portrait so it differs from Contact
-- [ ] **Extra truck art** — for hero and section use beyond the two trucks on hand
+**One thing to know before replacing art:** the v3 files were exported flattened
+onto white rather than cut out. `public/poses/` holds background-removed copies.
+If you drop a new white-background file in directly it will show as a white slab
+on the forest bands — remove the background first, or ask for the export with
+transparency.
+
+Still outstanding:
+
 - [ ] **Small directional poses** — Rocco peeking over a card or pointing at a button
+- [ ] The `front-loader` art includes a strip of asphalt under the truck, so it
+      reads as a slightly boxy edge on light sections. Fine as is; a cut-out
+      version would sit better.
 
 ### Numbers still unconfirmed
 
