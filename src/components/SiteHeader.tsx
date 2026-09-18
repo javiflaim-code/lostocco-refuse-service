@@ -143,7 +143,7 @@ export function SiteHeader() {
         <div className="wrap flex items-center justify-between gap-4 py-4 md:py-5">
           <Link
             href="/"
-            className="display flex shrink-0 flex-col justify-center leading-[0.95] text-paper"
+            className="display flex shrink-0 flex-col justify-center gap-1.5 leading-none text-paper"
             aria-label={`${site.shortName} — home`}
           >
             <span className="text-[2rem] normal-case tracking-[0.04em] xs:text-[2.625rem] md:text-[3.25rem]">

@@ -65,9 +65,11 @@ export function SectionHead({
   return (
     <div className={`flex max-w-[60ch] flex-col gap-4 ${alignment}`}>
       {eyebrow ? (
+        // A bubble rather than a quiet line — the section labels were reading as
+        // throwaway text, so they now match the pills used elsewhere.
         <p
-          className={`display text-[0.875rem] xs:text-sm ${
-            tone === 'paper' ? 'text-amber' : 'text-forest'
+          className={`display inline-flex rounded-full border-[2.5px] px-4 py-1.5 text-[1rem] ${
+            tone === 'paper' ? 'border-amber text-amber' : 'border-ink bg-amber text-ink'
           }`}
         >
           {eyebrow}

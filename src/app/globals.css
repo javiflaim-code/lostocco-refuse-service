@@ -10,6 +10,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* The header is sticky; without this an anchor lands behind it. */
+    scroll-padding-top: 180px;
   }
 
   body {

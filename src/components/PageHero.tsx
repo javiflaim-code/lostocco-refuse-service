@@ -32,6 +32,10 @@ export function PageHero({
 }) {
   const pair = Array.isArray(pose);
   const artFirst = artSide === 'left';
+  // A pose asked to fill its column needs the column to be wider, and needs a
+  // wrapper that stretches — a shrink-to-fit cell leaves `w-full` nothing to
+  // fill, which silently renders the art at a fraction of its intended size.
+  const wideArt = poseWidth.startsWith('w-full');
 
   return (
     <section className="on-forest band bg-forest" aria-labelledby="page-heading">
@@ -39,15 +43,17 @@ export function PageHero({
         className={`wrap grid items-center gap-8 py-10 sm:py-12 md:min-h-[612px] md:py-14 ${
           pair
             ? 'md:grid-cols-[0.95fr_1.05fr]'
-            : artFirst
+            : wideArt
               ? // A landscape banner earns the wider column; the copy beside it
                 // still has room without the band getting any taller.
-                'md:grid-cols-[1.35fr_1fr]'
+                artFirst
+                ? 'md:grid-cols-[1.35fr_1fr]'
+                : 'md:grid-cols-[1fr_1.35fr]'
               : 'md:grid-cols-[1fr_1fr]'
         }`}
       >
         <div className={`flex flex-col items-start gap-5 ${artFirst ? 'md:order-2' : ''}`}>
-          <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.9375rem] text-amber">
+          <p className="display inline-flex rounded-full border-[2.5px] border-ink bg-amber px-4 py-1.5 text-[1rem] text-ink">
             {eyebrow}
           </p>
           <h1 id="page-heading" className="display display--hero text-section text-paper">
@@ -58,13 +64,13 @@ export function PageHero({
         </div>
 
         <div
-          className={
-            artFirst
-              ? // Stretch the cell: a shrink-to-fit wrapper would leave the
-                // banner's `w-full` with nothing to fill.
-                'w-full justify-self-center md:order-1'
-              : 'justify-self-center md:justify-self-end'
-          }
+          className={[
+            wideArt ? 'w-full' : '',
+            'justify-self-center',
+            artFirst ? 'md:order-1' : wideArt ? '' : 'md:justify-self-end',
+          ]
+            .filter(Boolean)
+            .join(' ')}
         >
           {pair ? (
             <div className="flex w-full max-w-[560px] items-end">
@@ -95,11 +101,11 @@ export function PageHero({
               height={poses[pose].height}
               priority
               sizes={
-                artFirst
+                wideArt
                   ? '(max-width: 768px) 92vw, (max-width: 1024px) 60vw, 680px'
                   : '(max-width: 768px) 65vw, (max-width: 1024px) 45vw, 400px'
               }
-              className={`h-auto ${poseWidth}`}
+              className={`h-auto ${poseWidth} ${wideArt && !artFirst ? 'md:ml-auto' : ''}`}
             />
           )}
         </div>
