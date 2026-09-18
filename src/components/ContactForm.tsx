@@ -15,7 +15,6 @@ const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 const serviceOptions = [
   { value: 'start-trash', label: 'Start Trash Service' },
   { value: 'dumpster', label: 'Rent a Dumpster' },
-  { value: 'commercial', label: 'Commercial Service' },
   { value: 'billing', label: 'Billing' },
   { value: 'other', label: 'Other' },
 ] as const;

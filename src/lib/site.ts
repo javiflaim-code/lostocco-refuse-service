@@ -28,7 +28,7 @@ export const site = {
     weekend: 'Saturday & Sunday, closed',
   },
   credential: 'HRRA licensed hauler',
-  payBillUrl: 'https://www.lostoccoct.com/pay-bill-online',
+  payBillUrl: 'https://www.trashbilling.com/index.php',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=79+Beaver+Brook+Road+Danbury+CT+06810',
   mapsEmbedUrl:
     'https://www.google.com/maps?q=79+Beaver+Brook+Road,+Danbury,+CT+06810&output=embed',
@@ -62,7 +62,7 @@ export const towns = [
     slug: 'bethel',
     name: 'Bethel',
     blurb:
-      'Residential and commercial pickup across Bethel. Same carts, same two-foot spacing rule, same crew you already know.',
+      'Residential pickup across Bethel. Same carts, same two-foot spacing rule, same crew you already know.',
     trash: 'Weekly curbside',
     recycling: 'Bi-weekly, on the standard HRRA calendar',
     note: null,
@@ -80,7 +80,7 @@ export const towns = [
     slug: 'newtown',
     name: 'Newtown',
     blurb:
-      'Full residential and commercial service in Newtown, with roll-offs available for cleanouts and renovations.',
+      'Full residential service in Newtown, with roll-offs available for cleanouts and renovations.',
     trash: 'Weekly curbside',
     recycling: 'Bi-weekly, on Newtown’s own calendar',
     note: 'Newtown runs its own recycling calendar — it does not match the other four towns. Download the Newtown calendar before you set your carts out.',
@@ -137,11 +137,11 @@ export const dumpsters = [
   {
     size: '30',
     label: '30 Yard',
-    best: 'Whole-house cleanouts, big renovations, commercial and construction work.',
+    best: 'Whole-house cleanouts, big renovations and construction work.',
     fits: [
       'An entire house cleanout',
       'Large additions and framing debris',
-      'Commercial fit-outs',
+      'Large-scale fit-outs',
       'Multi-room demolition',
     ],
     dimensions: null,
@@ -165,13 +165,6 @@ export const services = [
     summary: 'Bi-weekly single-stream recycling. Newtown runs its own calendar.',
     body: 'Cardboard, paper, metal cans, glass bottles and plastic containers go in loose — no bags. Recycling runs every other week. If you live in Newtown, use the Newtown calendar, not the general one.',
     pose: 'recycling',
-  },
-  {
-    slug: 'commercial',
-    title: 'Commercial Trash & Recycling',
-    summary: 'Scheduled service for offices, restaurants, shops and multi-family buildings.',
-    body: 'We size the container and the pickup frequency to what you actually throw away, and we adjust it when your volume changes. Call and we will come look at the space.',
-    pose: 'rollOff',
   },
   {
     slug: 'dumpster-rentals',
@@ -248,8 +241,53 @@ export const resources = [
   },
 ] as const;
 
+/** The dated calendars — what people come looking for. */
+export const scheduleResources = resources.filter((r) =>
+  ['2026 Holiday Schedule', '2026 Recycling Calendar', '2026 Newtown Recycling Calendar'].includes(
+    r.title,
+  ),
+);
+
+/** Reference sheets and rules, rather than dates. */
+export const referenceResources = resources.filter(
+  (r) => !scheduleResources.some((s) => s.title === r.title),
+);
+
 export const unacceptableItemsUrl =
   'https://irp.cdn-website.com/aeebe00b/files/uploaded/Unacceptable%20Pick%20Up%20Items%20List.pdf';
+
+/**
+ * Real published reviews, quoted as written. Sources are noted so any of them
+ * can be checked; nothing here is invented.
+ */
+export const testimonials = [
+  {
+    quote:
+      'Very friendly staff. They pick up promptly and do not leave a mess. I also love that they are family owned and operated.',
+    name: 'Christine B.',
+    source: 'Angi review',
+  },
+  {
+    quote:
+      'They are just very easy to deal with. They have always been very fair… We have been with them for about 6–7 years and we will continue to use their services.',
+    name: 'Moira B.',
+    source: 'Angi review',
+  },
+  {
+    quote:
+      'Office staff were extremely friendly and responsive. Dumpster was brand new looking… they delivered perfectly on the boards.',
+    name: 'Bernie R.',
+    source: 'Angi review',
+  },
+  {
+    quote: 'I really appreciate Lostocco Refuse… Thanks for picking up anyway!',
+    name: 'Armen Stauffer',
+    source: 'Facebook',
+  },
+] as const;
+
+export const testimonialIntro =
+  'Customers keep coming back for the same reasons: prompt pickup, fair treatment, and a local family that still answers the phone.';
 
 export const nav = [
   { href: '/services', label: 'Services' },
