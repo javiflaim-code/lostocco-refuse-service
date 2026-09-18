@@ -8,10 +8,18 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     /* The header is sticky; without this an anchor lands behind it. */
     scroll-padding-top: 180px;
+    /*
+     * No `scroll-behavior: smooth` here, deliberately. On a route change the
+     * App Router walks the new page bottom-up calling scrollIntoView on each
+     * section, so the last call is what puts you at the top. Smooth turns every
+     * one of those into an animation, and an animation in flight is cancelled
+     * by the layout shift from a streaming Suspense boundary or a late image —
+     * which strands the reader partway down the page they just opened. Instant
+     * scrolling lands on the top of the band every time.
+     */
   }
 
   body {
@@ -97,10 +105,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
