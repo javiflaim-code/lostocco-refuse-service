@@ -42,7 +42,7 @@ export default function HomePage() {
         title="On time. Every week."
         lede="Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five Connecticut towns. Same family, same trucks, four decades running."
         pose="heroRearStep"
-        poseWidth="w-full max-w-[560px]"
+        poseWidth="w-full max-w-[680px]"
         artSide="left"
       >
         <div className="flex flex-wrap gap-4">

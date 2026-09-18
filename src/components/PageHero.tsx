@@ -37,7 +37,13 @@ export function PageHero({
     <section className="on-forest band bg-forest" aria-labelledby="page-heading">
       <div
         className={`wrap grid items-center gap-8 py-10 sm:py-12 md:min-h-[612px] md:py-14 ${
-          pair ? 'md:grid-cols-[0.95fr_1.05fr]' : 'md:grid-cols-[1fr_1fr]'
+          pair
+            ? 'md:grid-cols-[0.95fr_1.05fr]'
+            : artFirst
+              ? // A landscape banner earns the wider column; the copy beside it
+                // still has room without the band getting any taller.
+                'md:grid-cols-[1.35fr_1fr]'
+              : 'md:grid-cols-[1fr_1fr]'
         }`}
       >
         <div className={`flex flex-col items-start gap-5 ${artFirst ? 'md:order-2' : ''}`}>
@@ -54,7 +60,9 @@ export function PageHero({
         <div
           className={
             artFirst
-              ? 'justify-self-center md:order-1 md:justify-self-start'
+              ? // Stretch the cell: a shrink-to-fit wrapper would leave the
+                // banner's `w-full` with nothing to fill.
+                'w-full justify-self-center md:order-1'
               : 'justify-self-center md:justify-self-end'
           }
         >
@@ -86,7 +94,11 @@ export function PageHero({
               width={poses[pose].width}
               height={poses[pose].height}
               priority
-              sizes="(max-width: 768px) 65vw, (max-width: 1024px) 45vw, 400px"
+              sizes={
+                artFirst
+                  ? '(max-width: 768px) 92vw, (max-width: 1024px) 60vw, 680px'
+                  : '(max-width: 768px) 65vw, (max-width: 1024px) 45vw, 400px'
+              }
               className={`h-auto ${poseWidth}`}
             />
           )}
