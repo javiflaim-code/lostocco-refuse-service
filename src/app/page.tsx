@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import { ButtonLink, Numeral, PhotoFrame, Section, SectionHead } from '@/components/ui';
 import { Marquee } from '@/components/Marquee';
+import { PageHero } from '@/components/PageHero';
 import { CartSizes } from '@/components/CartSizes';
 import { DumpsterSwitcher } from '@/components/DumpsterSwitcher';
 import { ServiceAreaMapSection } from '@/components/ServiceAreaMapSection';
@@ -34,49 +35,32 @@ const steps = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero — the headline, then the banner: truck on the left, Rocco on
-          the right, drawn as one piece. */}
-      <section className="on-forest band bg-forest" aria-labelledby="hero-heading">
-        <div className="wrap flex flex-col items-center gap-8 py-10 text-center sm:py-12 md:py-14">
-          <div className="flex flex-col items-center gap-5">
-            <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.9375rem] text-amber">
-              Family owned · Danbury, CT
-            </p>
-            <h1 id="hero-heading" className="display display--hero text-hero text-paper">
-              On time. Every week.
-            </h1>
-            <p className="max-w-[52ch] text-lede text-mint">
-              Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five
-              Connecticut towns. Same family, same trucks, four decades running.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <ButtonLink href="/contact" variant="amber">
-                Start Service
-              </ButtonLink>
-              <ButtonLink href="/dumpsters" variant="paper">
-                Rent a Dumpster
-              </ButtonLink>
-            </div>
-            <p className="text-[1rem] text-mint/85">
-              Or call{' '}
-              <a href={site.phoneHref} className="display text-amber">
-                {site.phone}
-              </a>{' '}
-              — {site.hours.weekdays}
-            </p>
-          </div>
-
-          <Image
-            src={poses.heroRearStep.src}
-            alt={poses.heroRearStep.alt}
-            width={poses.heroRearStep.width}
-            height={poses.heroRearStep.height}
-            priority
-            sizes="(max-width: 1024px) 96vw, 1000px"
-            className="h-auto w-full max-w-[1000px]"
-          />
+      {/* Hero — same band as every other page, with the artwork on the left
+          so the headline and both calls to action stay above the fold. */}
+      <PageHero
+        eyebrow="Family owned · Danbury, CT"
+        title="On time. Every week."
+        lede="Weekly curbside trash, bi-weekly recycling and roll-off dumpsters across five Connecticut towns. Same family, same trucks, four decades running."
+        pose="heroRearStep"
+        poseWidth="w-full max-w-[560px]"
+        artSide="left"
+      >
+        <div className="flex flex-wrap gap-4">
+          <ButtonLink href="/contact" variant="amber">
+            Start Service
+          </ButtonLink>
+          <ButtonLink href="/dumpsters" variant="paper">
+            Rent a Dumpster
+          </ButtonLink>
         </div>
-      </section>
+        <p className="text-[1rem] text-mint/85">
+          Or call{' '}
+          <a href={site.phoneHref} className="display text-amber">
+            {site.phone}
+          </a>{' '}
+          — {site.hours.weekdays}
+        </p>
+      </PageHero>
 
       <Marquee />
 

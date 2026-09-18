@@ -3,7 +3,13 @@ import type { ReactNode } from 'react';
 import { poses, type PoseKey } from '@/lib/poses';
 
 /**
- * Shared page header: forest band, one h1, and the page's artwork.
+ * The forest band at the top of every page: one h1 and the page's artwork.
+ *
+ * The content area carries a minimum height so the band is the same depth on
+ * every route regardless of how much copy a page has — a hero that grew or
+ * shrank per page made the site feel like several sites. It also keeps the
+ * band short enough that the whole thing sits above the fold on a laptop.
+ *
  * `pose` takes one key, or two for a paired composition — the trucks on the
  * services page sit side by side, angled toward each other.
  */
@@ -13,6 +19,7 @@ export function PageHero({
   lede,
   pose,
   poseWidth = 'w-[260px] xs:w-[320px] md:w-[400px]',
+  artSide = 'right',
   children,
 }: {
   eyebrow: string;
@@ -20,18 +27,20 @@ export function PageHero({
   lede: string;
   pose: PoseKey | [PoseKey, PoseKey];
   poseWidth?: string;
+  artSide?: 'left' | 'right';
   children?: ReactNode;
 }) {
   const pair = Array.isArray(pose);
+  const artFirst = artSide === 'left';
 
   return (
     <section className="on-forest band bg-forest" aria-labelledby="page-heading">
       <div
-        className={`wrap grid items-center gap-8 py-10 sm:py-12 md:py-14 ${
+        className={`wrap grid items-center gap-8 py-10 sm:py-12 md:min-h-[612px] md:py-14 ${
           pair ? 'md:grid-cols-[0.95fr_1.05fr]' : 'md:grid-cols-[1fr_1fr]'
         }`}
       >
-        <div className="flex flex-col items-start gap-5">
+        <div className={`flex flex-col items-start gap-5 ${artFirst ? 'md:order-2' : ''}`}>
           <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.9375rem] text-amber">
             {eyebrow}
           </p>
@@ -42,7 +51,13 @@ export function PageHero({
           {children}
         </div>
 
-        <div className="justify-self-center md:justify-self-end">
+        <div
+          className={
+            artFirst
+              ? 'justify-self-center md:order-1 md:justify-self-start'
+              : 'justify-self-center md:justify-self-end'
+          }
+        >
           {pair ? (
             <div className="flex w-full max-w-[560px] items-end">
               <Image

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <section className="on-forest band bg-forest" aria-labelledby="notfound-heading">
-      <div className="wrap grid items-center gap-10 py-16 sm:py-20 md:grid-cols-[1fr_auto] md:gap-12">
+      <div className="wrap grid items-center gap-10 py-16 sm:py-20 md:min-h-[612px] md:grid-cols-[1fr_auto] md:gap-12 md:py-14">
         <div className="flex flex-col items-start gap-6">
           <p className="display inline-flex rounded-full border-[2.5px] border-amber px-4 py-1.5 text-[0.875rem] text-amber">
             404
