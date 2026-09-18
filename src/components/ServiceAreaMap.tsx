@@ -42,8 +42,8 @@ export function ServiceAreaMap({
   }, [active.slug]);
 
   return (
-    <div className="grid gap-8 md:grid-cols-[1.15fr_1fr] md:items-start md:gap-10">
-      <div className="card overflow-hidden bg-mint p-4 xs:p-6">
+    <div className="grid gap-8 md:grid-cols-2 md:items-stretch md:gap-10">
+      <div className="card flex h-full flex-col overflow-hidden bg-mint p-4 xs:p-6">
         <svg
           viewBox="6 38 554 330"
           role="group"
@@ -122,17 +122,29 @@ export function ServiceAreaMap({
           </g>
         </svg>
 
-        <p className="mt-4 text-[0.875rem] text-ink/75">
-          Pick a town for details. The dark dot is our yard on Beaver Brook Road. A red mark means
-          that town runs its own recycling calendar.
-        </p>
+        <ul className="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-4 text-[0.875rem] text-ink/75">
+          <li className="flex items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="inline-block h-3 w-3 rounded-full border-[2px] border-ink bg-forest"
+            />
+            Our yard on Beaver Brook Road
+          </li>
+          <li className="flex items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="inline-block h-3 w-3 rounded-full border-[2px] border-ink bg-warning"
+            />
+            Runs its own recycling calendar
+          </li>
+        </ul>
       </div>
 
       <div
         ref={panelRef}
         tabIndex={-1}
         aria-live="polite"
-        className="card card-lift flex flex-col gap-5 p-6 outline-none xs:p-8"
+        className="card card-lift flex h-full flex-col gap-5 p-6 outline-none xs:p-8"
       >
         <div>
           <p className="display text-[0.875rem] text-forest">Now showing</p>

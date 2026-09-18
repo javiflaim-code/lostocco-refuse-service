@@ -80,10 +80,18 @@ export function KeepItOutBlock({ pose = true }: { pose?: boolean }) {
   );
 }
 
-export function ResourceCards() {
+export function ResourceCards({
+  items = resources,
+  columns = 4,
+}: {
+  items?: readonly (typeof resources)[number][];
+  columns?: 3 | 4;
+}) {
   return (
-    <ul className="grid gap-5 xs:grid-cols-2 md:grid-cols-4">
-      {resources.map((resource) => {
+    <ul
+      className={`grid gap-5 xs:grid-cols-2 ${columns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-4'}`}
+    >
+      {items.map((resource) => {
         const isPdf = resource.href.endsWith('.pdf');
         return (
           <li key={resource.title} className="card card-lift flex flex-col">

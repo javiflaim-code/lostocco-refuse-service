@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
-import { ButtonLink, Placeholder } from '@/components/ui';
-import { BEAVER_NAME, dumpsters, site, type DumpsterSize } from '@/lib/site';
+import { ButtonLink } from '@/components/ui';
+import { dumpsters, site, type DumpsterSize } from '@/lib/site';
 import { poses } from '@/lib/poses';
 
 const sizes = dumpsters.map((d) => d.size);
@@ -54,8 +54,8 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
         })}
       </div>
 
-      <div className="grid gap-8 md:grid-cols-[1.05fr_1fr] md:items-start md:gap-10">
-        <div className="card card-lift flex flex-col gap-5 p-6 xs:p-8">
+      <div className="grid gap-8 md:grid-cols-2 md:items-stretch md:gap-10">
+        <div className="card card-lift flex h-full flex-col gap-5 p-6 xs:p-8">
           <div>
             <h3 className="display text-subsection text-forest">{current.label} Roll-Off</h3>
             <p className="mt-2 text-lede text-ink/85">{current.best}</p>
@@ -75,21 +75,6 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
             </ul>
           </div>
 
-          <dl className="grid gap-3 border-t-[3px] border-ink/15 pt-5 xs:grid-cols-2">
-            <div className="flex flex-col gap-1.5">
-              <dt className="display text-[0.875rem] text-forest">Dimensions</dt>
-              <dd>
-                <Placeholder label={`${current.label} dimensions — L × W × H`} />
-              </dd>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <dt className="display text-[0.875rem] text-forest">Equals about</dt>
-              <dd>
-                <Placeholder label={`${current.label} — pickup-truck loads`} />
-              </dd>
-            </div>
-          </dl>
-
           <div className="flex flex-wrap gap-3 pt-1">
             <ButtonLink href="/contact?service=dumpster" variant="forest">
               Request this size
@@ -101,9 +86,9 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
         </div>
 
         {showScale ? (
-          <div className="flex flex-col gap-4">
-            <div className="card flex flex-col bg-mint p-6 xs:p-8">
-              <p className="display mb-5 text-[0.875rem] text-forest">All three, to scale</p>
+          <div className="flex h-full flex-col gap-4">
+            <div className="card flex h-full flex-col justify-center bg-mint p-6 xs:p-8">
+              <p className="display mb-5 text-[0.875rem] text-forest">The three sizes</p>
               <Image
                 src={poses.dumpsterSizes.src}
                 alt={poses.dumpsterSizes.alt}
@@ -113,8 +98,8 @@ export function DumpsterSwitcher({ showScale = true }: { showScale?: boolean }) 
                 className="h-auto w-full"
               />
               <p className="mt-5 text-[0.9375rem] text-ink/75">
-                A 30 yard is about as tall as {BEAVER_NAME} and roughly twice the length of a 10
-                yard. Exact dimensions are coming from the yard.
+                Ten, twenty and thirty yards. If you are between two sizes, take the bigger one — a
+                second haul costs more than the extra room.
               </p>
             </div>
           </div>
