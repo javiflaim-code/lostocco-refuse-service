@@ -12,7 +12,7 @@ export function Testimonials({ heading = 'What people say' }: { heading?: string
         <p className="mt-3 max-w-[64ch] text-lede text-ink/85">{testimonialIntro}</p>
       </div>
 
-      <ul className="grid gap-5 xs:grid-cols-2 md:grid-cols-4">
+      <ul className="grid gap-5 xs:grid-cols-2 md:grid-cols-3">
         {testimonials.map((entry) => (
           <li key={entry.name} className="card card-lift flex flex-col gap-4 bg-paper p-6">
             <span className="display text-[0.875rem] text-forest" aria-hidden="true">

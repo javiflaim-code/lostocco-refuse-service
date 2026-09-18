@@ -279,11 +279,6 @@ export const testimonials = [
     name: 'Bernie R.',
     source: 'Angi review',
   },
-  {
-    quote: 'I really appreciate Lostocco Refuse… Thanks for picking up anyway!',
-    name: 'Armen Stauffer',
-    source: 'Facebook',
-  },
 ] as const;
 
 export const testimonialIntro =

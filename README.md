@@ -163,10 +163,11 @@ Gaps render on the site as visibly marked `[PLACEHOLDER — …]` blocks.
 
 ### Testimonials
 
-The four quotes on the homepage are **real published comments** from Angi and
-Facebook, quoted as written and attributed. Two further Nextdoor quotes are in
-the source document and were left off — one carries a monthly price that would
-need confirming before it goes live.
+The three quotes on the homepage are **real published comments** from Angi,
+quoted as written and attributed. Three further quotes are in the source
+document and were left off: the Facebook one at the client's request, and two
+Nextdoor lines — one of which carries a monthly price that would need
+confirming before it goes live.
 
 ### Artwork
 
