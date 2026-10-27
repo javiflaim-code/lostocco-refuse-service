@@ -221,3 +221,8 @@ Verified across all nine routes at 375 / 768 / 1440 px:
 - All motion disabled under `prefers-reduced-motion: reduce`
 - Per-page title/description, Open Graph tags, and LocalBusiness JSON-LD
   carrying the name, address, phone, hours and the five towns
+
+
+## Site login
+
+This site is behind a shared login (HTTP Basic Auth). The username and password live in the Vercel environment variables `SITE_USER` and `SITE_PASSWORD`, never in this repo. To open the site to the public, delete the login file (`src/proxy.ts`) and push.
